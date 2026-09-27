@@ -122,6 +122,10 @@ Measured on the Oogie Boogie Lego figure (MakerWorld, designed at 500%, printed 
 - **Pegs and studs break across layers.** A vertical stud is a stack of discs and snaps at its root.
   Lay the part so its studs are horizontal: Oogie's hip studs fit a real torso but one snapped when
   printed vertical; lying on its front face they print along their length (33 mm2 contact, 7.7 mm tall).
+- **Check the weakest layer before choosing an orientation.** Section the part every ~0.4 mm and take
+  the smallest cross-section: Oogie's arm standing on its tip had a 2.3 mm2 layer and snapped there,
+  on its edge the weakest is 17.7 mm2. Score candidates on weakest layer, supported area inside
+  cavities (faces >0.4 mm inside the convex hull) and supported area on the visible outside, then pick.
 - **A pocket whose ceiling overhangs gets filled with support, and its inside comes out rough.**
   Try rotations and pick the one that minimizes supported overhang (faces steeper than ~55 degrees
   down) while keeping the pocket walls vertical. Oogie's flipper arms went from 101 to 19 mm2 of
