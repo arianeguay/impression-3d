@@ -13,10 +13,10 @@
         "height": 4.8
       },
       "model_mm": {
-        "diameter": 4.9,
+        "diameter": 5.0,
         "height": 4.8
       },
-      "evidence": "4.76 printed was loose in a real LEGO head; 4.9 grips it"
+      "evidence": "4.76 loose in a real head; 4.9 gripped in PETG but is a little loose in PLA (2026-09-27); 5.0 is the next try, untested"
     },
     "head_socket": {
       "official_mm": {
