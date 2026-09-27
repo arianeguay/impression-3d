@@ -68,7 +68,7 @@
       "model_mm": {
         "diameter": 4.0
       },
-      "evidence": "untested as of 2026-09-27"
+      "evidence": "4.0 holds the 3.85 arm peg, accepted (2026-09-27)"
     },
     "arm_peg": {
       "official_mm": {
@@ -81,7 +81,7 @@
         "diameter": 3.85,
         "insertion": 1.4
       },
-      "evidence": "a 4.4 ball resting on the hole rim fell out; peg untested as of 2026-09-27"
+      "evidence": "a 4.4 ball resting on the hole rim fell out; the 3.85 peg printed on the arm's edge holds, not perfect but accepted (2026-09-27)"
     },
     "plate_stud": {
       "official_mm": {

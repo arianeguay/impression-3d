@@ -10,14 +10,14 @@ Printed at **20%** in Polymaker Panchroma Neon PLA with the `figurine` profile (
 | `hip.stl` | lying on its front face, studs horizontal | a few under the studs, no raft | validated v12 |
 | `leg_r.stl`, `leg_l.stl` | standing | none | validated v12 |
 | `head.stl` | upright, socket down | raft + normal | validated v12 (PLA) |
-| `torso.stl` | upright, neck stud up | none | shoulder holes untested |
-| `arm.stl` (print two) | on its edge | raft + normal, 45 degree threshold | v13 printing; standing (v10) was clean inside but snapped at a 2.3 mm2 layer |
+| `torso.stl` | upright, neck stud up | none | shoulders accepted; neck raised to 5.0, printing in v13 |
+| `arm.stl` (print two) | on its edge | raft + normal, 45 degree threshold | accepted v13; standing (v10) was clean inside but snapped at a 2.3 mm2 layer |
 
 ## Geometry changes from the source, and why
 
 | Joint | Source | Now | Evidence |
 |---|---|---|---|
-| Neck stud | 4.76 x 3.4 mm | 4.9 x 4.8 mm | official 4.8 x 4.8; printed 4.8 was loose in a real head |
+| Neck stud | 4.76 x 3.4 mm | 5.0 x 4.8 mm | official 4.8 x 4.8; 4.76 loose, 4.9 gripped in PETG but was loose in PLA |
 | Head socket | = stud (zero clearance) | 5.06 x 4.95 deep | fits both printed and real torsos |
 | Hip top studs | hollow, 0.78 mm wall, 4.7 | solid D, 4.5 | hollow snapped; vertical ones snapped, so printed lying |
 | Leg pin hole | 2.45 (0.07 clearance) | 2.50 (0.15 clearance) | 2.45 seized, 2.65 fell out, 2.50 clips |
