@@ -43,7 +43,9 @@ def flatten(path, kind, idx):
 
 
 def profile_sets(name):
-    return [f"{k}={v}" for k, v in json.load(open(os.path.join(PROFILES, f"{name}.json"))).items()]
+    d = json.load(open(os.path.join(PROFILES, f"{name}.json")))
+    base = profile_sets(d["_extends"]) if "_extends" in d else []
+    return base + [f"{k}={v}" for k, v in d.items() if not k.startswith("_")]
 
 
 def write(out_dir, machine=DEFAULT_MACHINE, process=DEFAULT_PROCESS, filament=DEFAULT_FILAMENT,

@@ -23,7 +23,7 @@ Prefer the **`impression-3d` MCP tools** when they are loaded (`printer_status`,
 | Slicer | OrcaSlicer 2.3.1, Flatpak `io.github.softfever.OrcaSlicer` |
 | Orca config | `~/.var/app/io.github.softfever.OrcaSlicer/config/OrcaSlicer/` (`user/default/{machine,process,filament}`) |
 | Machine preset | `Flashforge Adventurer 5M 0.4 Nozzle - custom` (inherits the system AD5M 0.4 preset) |
-| Profiles | `profiles/figurine.json`: 0.08 mm layers, slow walls, grid supports at 0.3 mm gap, 45 degree threshold |
+| Profiles | `profiles/lego_minifig.json` (extends figurine), `profiles/figurine.json`: 0.08 mm layers, slow walls, grid supports at 0.3 mm gap, 45 degree threshold |
 | Projects | `projects/<name>/`: final oriented parts plus a README of every geometry change and its evidence |
 
 Filament presets the user has (both inherit the Flashforge generic of their type):
@@ -141,6 +141,10 @@ Measured on the Oogie Boogie Lego figure (MakerWorld, designed at 500%, printed 
   that must stay clear for a mating part.
 
 ## LEGO minifigure reference
+
+The machine-readable version, with what to **model** for each joint on this printer and the test
+behind it, is `standards/lego_minifig.json`; slice minifig parts with `--profile lego_minifig`.
+Update that file (and its evidence) whenever a fit is tested.
 
 Official LDraw geometry (1 LDU = 0.4 mm; parts at `library.ldraw.org/library/official/parts/`, the
 real shapes live in the `s/` subfiles, the patterned `.dat` only carry decals):
