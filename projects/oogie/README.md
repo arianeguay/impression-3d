@@ -11,7 +11,7 @@ Printed at **20%** in Polymaker Panchroma Neon PLA with the `figurine` profile (
 | `leg_r.stl`, `leg_l.stl` | standing | none | validated v12 |
 | `head.stl` | upright, socket down | raft + normal | validated v12 (PLA) |
 | `torso.stl` | upright, neck stud up | none | shoulder holes untested |
-| `arm.stl` (print two) | standing on its thin tip, peg up | raft + normal, 45 degree threshold | untested |
+| `arm.stl` (print two) | on its edge | raft + normal, 45 degree threshold | v13 printing; standing (v10) was clean inside but snapped at a 2.3 mm2 layer |
 
 ## Geometry changes from the source, and why
 
