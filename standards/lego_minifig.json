@@ -1,0 +1,55 @@
+{
+  "_about": "LEGO minifigure joints. official_mm: LDraw geometry (1 LDU = 0.4 mm). model_mm: what to model so the printed part fits on the Adventurer 5M, 0.4 nozzle, PLA, figurine profile. Each model value was printed and tested.",
+  "rules": {
+    "scale_of_a_500_percent_design": 0.2,
+    "grip_but_turn_clearance_on_diameter_mm": 0.15,
+    "min_wall_mm": 0.78,
+    "pegs_and_studs_print_horizontal": true
+  },
+  "joints": {
+    "neck_stud": {
+      "official_mm": {"diameter": 4.8, "height": 4.8},
+      "model_mm": {"diameter": 4.9, "height": 4.8},
+      "evidence": "4.76 printed was loose in a real LEGO head; 4.9 grips it"
+    },
+    "head_socket": {
+      "official_mm": {"diameter": null},
+      "model_mm": {"diameter": 5.06, "depth": 4.95},
+      "evidence": "fits both a real torso (4.8 stud) and the printed 4.9 stud"
+    },
+    "hip_top_studs": {
+      "official_mm": {"note": "hollow flexible studs"},
+      "model_mm": {"shape": "solid", "width": 4.5},
+      "evidence": "hollow 0.78 mm walls snapped; vertical solid studs snapped; solid studs printed lying hold and fit a real torso"
+    },
+    "leg_pin_hole": {
+      "official_mm": {"note": "snap fit on the hip pin"},
+      "model_mm": {"diameter_over_pin": 0.15},
+      "evidence": "pin 2.35: hole 2.45 seized, 2.65 fell out, 2.50 clips and turns"
+    },
+    "foot_hole": {
+      "official_mm": {"width": 4.8, "length": 4.8, "depth": 1.6},
+      "model_mm": {"width": 5.1, "length": 5.1, "depth": 1.9},
+      "evidence": "5.0 fit a baseplate stud only just; 5.1 fits"
+    },
+    "shoulder_hole": {
+      "official_mm": {"diameter": 4.0, "wall": 0.8},
+      "model_mm": {"diameter": 4.0},
+      "evidence": "untested as of 2026-09-27"
+    },
+    "arm_peg": {
+      "official_mm": {"neck_diameter": 4.0, "neck_length": 0.8, "snap_lip_diameter": 4.4},
+      "model_mm": {"shape": "solid cylinder, no snap", "diameter": 3.85, "insertion": 1.4},
+      "evidence": "a 4.4 ball resting on the hole rim fell out; peg untested as of 2026-09-27"
+    },
+    "plate_stud": {
+      "official_mm": {"diameter": 4.8, "height": 1.7}
+    }
+  },
+  "outer_mm": {
+    "torso_bottom": {"width": 15.2, "height": 12.8, "depth": 8.0},
+    "hips_width": 14.4,
+    "leg_width": 7.2,
+    "hip_top_to_sole": 16.0
+  }
+}

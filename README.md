@@ -9,7 +9,8 @@ printer, job started.
 | `skill/scripts/printer.py` | Printer over the LAN: status, files, upload, start, pause/resume/cancel, clear-platform, camera snapshot |
 | `skill/scripts/slice.py` | OrcaSlicer CLI wrapper: presets flattened, per-object supports, summary of time/grams/supports |
 | `skill/scripts/orca_presets.py` | Turns Orca user presets into files the CLI accepts |
-| `profiles/` | Named override sets for `slice.py --profile` (`figurine`: the settings that printed Oogie) |
+| `profiles/` | Named override sets for `slice.py --profile` (`figurine`: the settings that printed Oogie; `lego_minifig` extends it via `_extends`) |
+| `standards/` | Dimension standards with the values that print and fit here (`lego_minifig.json`) |
 | `mcp/server.py` | MCP server exposing the same tools to Claude Code |
 | `projects/<name>/` | One folder per print project: final parts and the notes behind every change |
 
