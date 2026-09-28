@@ -48,8 +48,9 @@ curl -s -X POST -H "Authorization: Bearer $HA_TOKEN" -H "Content-Type: applicati
 
 Cut power only when `printer_status` is `READY` and the nozzle is under 50 C: the hotend fan must
 run after a print, or heat creeps up the filament path. After `turn_on`, poll `printer_status` until
-it answers (about 50 s). The plug used to run the office fan, and a wall button (`Switch bureau ②`)
-still toggles it through an HA automation: pressing it mid-print cuts the print.
+it answers (about 50 s). The plug used to run the office fan; its three fan automations (wall
+button ② and two temperature triggers) were deleted on 2026-09-28, so nothing in HA switches it but
+the Bureau dashboard tile.
 
 ## Talking to the printer
 
