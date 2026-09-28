@@ -13,10 +13,10 @@
         "height": 4.8
       },
       "model_mm": {
-        "diameter": 5.0,
+        "diameter": 4.9,
         "height": 4.8
       },
-      "evidence": "4.76 loose in a real head; 4.9 gripped in PETG but is a little loose in PLA (2026-09-27); 5.0 is the next try, untested"
+      "evidence": "fit coupon 2026-09-28 in calibrated PLA (205 C, PA 0.045): 4.9 grips a real LEGO head best of 4.9/5.0/5.1. Before calibration 4.9 was loose, so the value belongs to the calibrated profile"
     },
     "head_socket": {
       "official_mm": {
@@ -45,7 +45,7 @@
       "model_mm": {
         "diameter_over_pin": 0.15
       },
-      "evidence": "pin 2.35: hole 2.45 seized, 2.65 fell out, 2.50 clips and turns"
+      "evidence": "pin 2.35: 2.45 seized, 2.65 fell out, 2.50 clips and turns; fit coupon 2026-09-28 confirms 2.50 of 2.45/2.50/2.55"
     },
     "foot_hole": {
       "official_mm": {
@@ -68,7 +68,7 @@
       "model_mm": {
         "diameter": 4.0
       },
-      "evidence": "4.0 holds the 3.85 arm peg, accepted (2026-09-27)"
+      "evidence": "4.0 holds a 3.90 friction peg (fit coupon 2026-09-28)"
     },
     "arm_peg": {
       "official_mm": {
@@ -78,10 +78,10 @@
       },
       "model_mm": {
         "shape": "solid cylinder, no snap",
-        "diameter": 3.85,
+        "diameter": 3.9,
         "insertion": 1.4
       },
-      "evidence": "a 4.4 ball resting on the hole rim fell out; the 3.85 peg printed on the arm's edge holds, not perfect but accepted (2026-09-27)"
+      "evidence": "fit coupon 2026-09-28: 3.90 best of 3.90/3.95/4.00 in the printed 4.0 shoulder hole; 3.85 was loose, a 4.4 ball fell out"
     },
     "plate_stud": {
       "official_mm": {

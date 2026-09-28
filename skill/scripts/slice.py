@@ -2,9 +2,9 @@
 """Slice STLs with the OrcaSlicer CLI (Flatpak) using the user's presets.
 
 usage: slice.py <out_dir> <model.stl>... [--filament NAME] [--profile NAME] [--set kind.key=value ...]
-                [--supported NAME ...]
+                [--supported NAME ...] [--no-raft NAME ...]
 
---supported gives support + a 3-layer raft to the named models only (file stem, e.g. "head"); the
+--supported gives support + a 3-layer raft (none with --no-raft) to the named models only (file stem, e.g. "head"); the
 others print without. Prints the G-code path, time, grams and support moves per object.
 The Flatpak sandbox cannot read /tmp: keep out_dir and models under $HOME.
 """
@@ -15,9 +15,9 @@ sys.path.insert(0, HERE)
 import orca_presets  # noqa: E402
 
 ORCA = ["flatpak", "run", "--command=orca-slicer", "io.github.softfever.OrcaSlicer"]
-PER_OBJECT = ('\n    <metadata key="enable_support" value="1"/>'
+SUPPORT = ('\n    <metadata key="enable_support" value="1"/>'
               '\n    <metadata key="support_type" value="normal(auto)"/>'
-              '\n    <metadata key="raft_layers" value="3"/>')
+              '\n    <metadata key="raft_layers" value="{raft}"/>')
 
 
 def _run(args, out_dir):
@@ -29,7 +29,7 @@ def _run(args, out_dir):
 
 
 def slice_models(out_dir, models, filament=orca_presets.DEFAULT_FILAMENT, sets=(), supported=(),
-                 profile=None):
+                 profile=None, no_raft=()):
     out_dir = os.path.abspath(out_dir)
     os.makedirs(out_dir, exist_ok=True)
     for f in ("result.json", "plate_1.gcode"):
@@ -54,12 +54,16 @@ def slice_models(out_dir, models, filament=orca_presets.DEFAULT_FILAMENT, sets=(
         items = [(i, zi.read(i.filename)) for i in zi.infolist()]
         zi.close()
         names = "|".join(re.escape(n) for n in supported)
+
+        def tag(m):
+            name = re.search(r'value="([^"]+)\.stl"', m.group(1)).group(1)
+            return m.group(1) + SUPPORT.format(raft=0 if name in no_raft else 3)
         with zipfile.ZipFile(src, "w", zipfile.ZIP_DEFLATED) as zo:
             for i, d in items:
                 if i.filename == "Metadata/model_settings.config":
                     d = re.sub(rf'(<metadata key="name" value="(?:{names})\.stl"/>\s*'
                                r'<metadata key="extruder" value="1"/>)',
-                               lambda m: m.group(1) + PER_OBJECT, d.decode()).encode()
+                               tag, d.decode()).encode()
                 zo.writestr(i, d)
         _run(["--arrange", "1", "--slice", "0", "plate.3mf"], out_dir)
     else:
@@ -96,8 +100,9 @@ def main():
     a.add_argument("--profile")
     a.add_argument("--set", action="append", default=[])
     a.add_argument("--supported", action="append", default=[])
+    a.add_argument("--no-raft", action="append", default=[], help="supported model that gets no raft")
     o = a.parse_args()
-    print(json.dumps(slice_models(o.out_dir, o.models, o.filament, o.set, o.supported, o.profile), indent=2))
+    print(json.dumps(slice_models(o.out_dir, o.models, o.filament, o.set, o.supported, o.profile, o.no_raft), indent=2))
 
 
 if __name__ == "__main__":
