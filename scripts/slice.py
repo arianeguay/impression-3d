@@ -14,7 +14,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import orca_presets  # noqa: E402
 
-ORCA = ["flatpak", "run", "--command=orca-slicer", "io.github.softfever.OrcaSlicer"]
+ORCA = ["flatpak", "run", "--command=orca-slicer", "com.orcaslicer.OrcaSlicer"]
 SUPPORT = ('\n    <metadata key="enable_support" value="1"/>'
               '\n    <metadata key="support_type" value="normal(auto)"/>'
               '\n    <metadata key="raft_layers" value="{raft}"/>')
@@ -35,9 +35,7 @@ def slice_models(out_dir, models, filament=orca_presets.DEFAULT_FILAMENT, sets=(
     for f in ("result.json", "plate_1.gcode"):
         if os.path.exists(os.path.join(out_dir, f)):
             os.remove(os.path.join(out_dir, f))
-    sets = list(sets)
-    if supported:
-        sets += ["process.enable_support=0", "process.raft_layers=0"]
+    sets = ["process.enable_support=0", "process.raft_layers=0"] + list(sets)
     orca_presets.write(out_dir, filament=filament, profile=profile, sets=sets)
     local = []
     for m in models:

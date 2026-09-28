@@ -60,7 +60,7 @@ What the CLI demands, each learned by a failure:
 
 Order: first layer, temperature, flow, pressure advance, retraction, then the LEGO fit coupon last
 (fits move with flow and pressure advance). Results go in `calibration/README.md`, values into the
-filament preset of **both** Orca installs. Each test is printed through print-run.
+filament preset in Orca. Each test is printed through print-run.
 
 | Test | How | Reading it |
 |---|---|---|
