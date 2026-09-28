@@ -36,6 +36,21 @@ geometry goes back to **print-design**, one caused by settings to **print-prepar
   G-code's `; printing object` coordinates.
 - A part that broke or toppled because of its shape, or a joint that does not fit: print-design.
 
+## Power
+
+The printer's plug is a Home Assistant switch (see `reference.md`):
+
+```bash
+set -a; . ~/.config/impression-3d/printer.env; set +a
+curl -s -X POST -H "Authorization: Bearer $HA_TOKEN" -H "Content-Type: application/json" \
+  -d '{"entity_id":"switch.clim_salon_socket_1"}' "$HA_URL/api/services/switch/turn_off"   # or turn_on
+```
+
+Cut power only when `printer_status` is `READY` and the nozzle is under 50 C: the hotend fan must
+run after a print, or heat creeps up the filament path. After `turn_on`, poll `printer_status` until
+it answers (about 50 s). The plug used to run the office fan, and a wall button (`Switch bureau ②`)
+still toggles it through an HA automation: pressing it mid-print cuts the print.
+
 ## Talking to the printer
 
 `scripts/printer.py` speaks the legacy protocol on TCP 8899, the same one Orca's Flashforge host
