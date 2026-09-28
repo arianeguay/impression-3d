@@ -1,1 +1,8 @@
 mcp>=2.2
+trimesh
+numpy
+scipy
+shapely
+manifold3d
+networkx
+rtree
