@@ -1,5 +1,4 @@
 {
-  "machine.z_offset": "-0.02",
   "process.bottom_shell_layers": "6",
   "process.bridge_no_support": "1",
   "process.brim_type": "no_brim",
@@ -36,5 +35,6 @@
   "process.top_shell_layers": "10",
   "process.top_surface_acceleration": "1500",
   "process.top_surface_speed": "60",
-  "process.wall_loops": "3"
+  "process.wall_loops": "3",
+  "process.slowdown_for_curled_perimeters": "1"
 }
