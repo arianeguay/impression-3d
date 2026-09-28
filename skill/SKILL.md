@@ -20,7 +20,7 @@ Prefer the **`impression-3d` MCP tools** when they are loaded (`printer_status`,
 | Printer | Flashforge Adventurer 5M, 0.4 nozzle, 220x220x220, firmware v5.1.8 |
 | Printer IP, serial, LAN check code | `~/.config/impression-3d/printer.env` (never in git). The code is **lowercase** |
 | Camera | MJPEG on `http://<ip>:8080/?action=stream`; `printer.py snapshot` saves one frame |
-| Slicer | OrcaSlicer 2.3.1, Flatpak `io.github.softfever.OrcaSlicer` |
+| Slicer | **Two Flatpaks.** The user's GUI is `com.orcaslicer.OrcaSlicer` 2.4.2 (config `~/.var/app/com.orcaslicer.OrcaSlicer/...`); the scripts still drive the older `io.github.softfever.OrcaSlicer`. A preset added to one is invisible to the other: copy it to both. GUI calibration projects land in the 2.4.2 `log/` folder; `com.orcaslicer.OrcaSlicer` CLI slices them (the PA pattern is stored as custom G-code), and `retraction_steps.py` adds the per-mm retraction the CLI leaves out |
 | Orca config | `~/.var/app/io.github.softfever.OrcaSlicer/config/OrcaSlicer/` (`user/default/{machine,process,filament}`) |
 | Machine preset | `Flashforge Adventurer 5M 0.4 Nozzle - custom` (inherits the system AD5M 0.4 preset) |
 | Profiles | `profiles/lego_minifig.json` (extends figurine), `profiles/figurine.json`: 0.08 mm layers, slow walls, grid supports at 0.3 mm gap, 45 degree threshold |
