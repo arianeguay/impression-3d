@@ -1,4 +1,5 @@
 {
+  "machine.z_offset": "-0.02",
   "process.bottom_shell_layers": "6",
   "process.bridge_no_support": "1",
   "process.brim_type": "no_brim",
