@@ -28,7 +28,8 @@ Prefer the **`impression-3d` MCP tools** when they are loaded (`printer_status`,
 
 Filament presets the user has (both inherit the Flashforge generic of their type):
 
-- `Polymaker Panchroma Neon PLA`: 210 C (215 first layer), bed 50, `#00F263`. Fluorescent under UV, does **not** glow in the dark.
+- `Polymaker Panchroma Neon PLA`: 205 C (215 first layer), bed 50, `#00F263`. 205 from the temperature
+  tower of 2026-09-27: bridges and walls clean from 230 to 190, layers unbreakable by hand even at 190. Fluorescent under UV, does **not** glow in the dark.
 - `IEMAI Glow PETG`: 250 C, bed 65, 10 mm3/s. Glow-in-the-dark pigment is abrasive.
 - `Flashforge Duramic PLA`: 210 C.
 
