@@ -17,7 +17,7 @@ Prefer the **`impression-3d` MCP tools** when they are loaded (`printer_status`,
 
 | Thing | Value |
 |---|---|
-| Printer | Flashforge Adventurer 5M, 0.4 nozzle, 220x220x220, firmware v5.1.8 |
+| Printer | Flashforge Adventurer 5M, 0.4 nozzle, 220x220x220, firmware v5.1.8, **official enclosure kit fitted** |
 | Printer IP, serial, LAN check code | `~/.config/impression-3d/printer.env` (never in git). The code is **lowercase** |
 | Camera | MJPEG on `http://<ip>:8080/?action=stream`; `printer.py snapshot` saves one frame |
 | Slicer | **Two Flatpaks.** The user's GUI is `com.orcaslicer.OrcaSlicer` 2.4.2 (config `~/.var/app/com.orcaslicer.OrcaSlicer/...`); the scripts still drive the older `io.github.softfever.OrcaSlicer`. A preset added to one is invisible to the other: copy it to both. GUI calibration projects land in the 2.4.2 `log/` folder; `com.orcaslicer.OrcaSlicer` CLI slices them (the PA pattern is stored as custom G-code), and `retraction_steps.py` adds the per-mm retraction the CLI leaves out |
@@ -28,8 +28,9 @@ Prefer the **`impression-3d` MCP tools** when they are loaded (`printer_status`,
 
 Filament presets the user has (both inherit the Flashforge generic of their type):
 
-- `Polymaker Panchroma Neon PLA`: 205 C (215 first layer), bed 50, `#00F263`. 205 from the temperature
-  tower of 2026-09-27: bridges and walls clean from 230 to 190, layers unbreakable by hand even at 190. Fluorescent under UV, does **not** glow in the dark.
+- `Polymaker Panchroma Neon PLA`: 205 C (215 first layer), bed 50, flow 0.98, pressure advance 0.045,
+  retraction 0.8 mm, `#00F263`. All calibrated 2026-09-27, see `calibration/README.md`. Fluorescent
+  under UV, does **not** glow in the dark.
 - `IEMAI Glow PETG`: 250 C, bed 65, 10 mm3/s. Glow-in-the-dark pigment is abrasive.
 - `Flashforge Duramic PLA`: 210 C.
 
@@ -41,8 +42,8 @@ Orca only reads presets at startup, so the user must fully quit and reopen it.
 
 1. **Inspect the model before touching settings.** Unzip the 3MF with Python `zipfile`, read the
    designer description (`3D/3dmodel.model` metadata), `Metadata/project_settings.config` and
-   `model_settings.config`. Measure parts with trimesh (scratch venv: `trimesh numpy shapely
-   networkx scipy rtree`): bounding boxes, and `mesh.section()` slices to find studs, holes and pins.
+   `model_settings.config`. Measure parts with trimesh (the repo's `.venv` has `trimesh numpy scipy shapely
+   manifold3d`): bounding boxes, and `mesh.section()` slices to find studs, holes and pins.
 2. **Fix geometry by editing vertices**, not by scaling a part up or down to cheat a fit (see Fits).
 3. **Slice with the Orca CLI** (recipe below) and read time, grams and per-object support placement
    out of the G-code. Never hand over an unsliced file as if it were verified.
@@ -106,6 +107,10 @@ remote way out of `BUILDING_COMPLETED`. `printer.py clear-platform` wraps it.
 
 Measured on the Oogie Boogie Lego figure (MakerWorld, designed at 500%, printed at 20%):
 
+- **A whole plate that turns to spaghetti from the first layers is a dirty bed, not the file.** The
+  final Oogie plate failed completely, with settings byte-identical to a plate that had just
+  printed; a wipe with rubbing alcohol fixed it. Glue does not help adhesion here. Ask for a wipe
+  before re-slicing anything.
 - **Tree supports on tiny parts turn into spaghetti.** Branches under 1 mm get knocked over. Glue
   does not help, since the plate bond is not what breaks. Use normal (grid) supports, plus a 3-layer
   raft on parts that sit on a point, and support only the parts that need it (per-object settings).
@@ -128,22 +133,44 @@ Measured on the Oogie Boogie Lego figure (MakerWorld, designed at 500%, printed 
   on its edge the weakest is 17.7 mm2. Score candidates on weakest layer, supported area inside
   cavities (faces >0.4 mm inside the convex hull) and supported area on the visible outside, then pick.
 - **A pocket whose ceiling overhangs gets filled with support, and its inside comes out rough.**
-  Try rotations and pick the one that minimizes supported overhang (faces steeper than ~55 degrees
-  down) while keeping the pocket walls vertical. Oogie's flipper arms went from 101 to 19 mm2 of
-  supported surface standing on their thin tip, peg up, on a raft.
+  Minimizing supported overhang alone is not enough: Oogie's flipper arm standing on its thin tip
+  had the least support (19 mm2) and the cleanest pocket, and snapped at its 2.3 mm2 weakest layer.
+  On its edge (weakest layer 17.7 mm2, supports split between pocket and outside) it printed whole.
 - **The user wants supports released at a 0.3 mm gap minimum** (top, bottom and XY); 0.2 welded in PETG.
 - **Designers often model press fits at zero clearance.** Head socket = neck stud diameter, leg hole
-  0.07 mm bigger than the pin. Scaling down shrinks the gap to nothing. Target **0.30 mm diametral
-  clearance** by moving the hole's vertices radially, keeping the part itself at scale.
+  0.07 mm bigger than the pin. Scaling down shrinks the gap to nothing. Fix it by moving the hole's
+  vertices radially, keeping the part itself at scale. **Target ~0.15 mm on the diameter for a joint
+  that must turn and stay on** (leg on hip pin: 0.07 seized, 0.30 slid off, 0.15 clips); the head
+  socket sits at 0.16 over its stud. `standards/lego_minifig.json` holds the tested value per joint.
 - **Every part of an assembly at one scale.** Different scales per part broke every joint.
 - **Hollow studs with sub-mm walls snap off.** Real LEGO studs flex, printed ones shear at the base.
-  Fill the hollow and slim the stud 0.1 mm. Print studs pointing up, never on the plate: the first
-  layer's elephant foot makes the tip oversize, and the weak root ends up on supports.
-- **Printed studs come out thinner than modeled.** A neck stud had to be modeled at 4.9 mm to grip a
-  real LEGO head (official 4.8).
+  Fill the hollow and slim the stud 0.1 mm, and print the part so the studs lie horizontal (see the
+  layers bullet above); never with the stud tips on the plate, where the first layer's squish makes
+  them oversize.
+- **Printed studs come out thinner than modeled, and the material moves the number.** A neck stud
+  modeled at 4.9 gripped a real LEGO head in PETG and was loose in PLA; 5.0 is the PLA value under test.
 - **Tiny detailed figures: PLA over PETG.** PETG strings between parts and bonds to supports.
 - **Bridges**: `bridge_no_support=1` keeps supports out of blind cavities (torso bottom, head socket)
   that must stay clear for a mating part.
+
+## Calibrating a filament
+
+Order: first layer, temperature, flow, pressure advance, retraction, then the LEGO fit coupon last
+(fits move with flow and pressure advance). Results go in `calibration/README.md`, values into the
+filament preset of **both** Orca installs.
+
+| Test | How | Reading it |
+|---|---|---|
+| First layer | `calibration/first_layer_ad5m.stl`, one 0.2 mm layer | peel a square, hold it to the light: one sheet with no gaps = right; gaps = raise squish (`machine.z_offset`, now -0.02 in `figurine`) |
+| Temperature | `scripts/temp_tower.py`: 9 levels of 6 mm, 230 down to 190, M104 inserted per level | bridge and 45 degree overhang per level, then try to break the coolest levels by hand |
+| Flow, pass 1 | Orca GUI (the user sends it) | the labels on the tabs are unreadable in photos: map from `calib/filament_flow/flowrate-test-pass1.3mf` vertex centroids, back row +20/+15/+10, middle +5/0/-5, front -20/-15/-10. A visible ring on the top = under-extrusion. Take the lowest smooth one |
+| Pressure advance | Orca GUI project from the 2.4.2 `log/` folder, sliced by its CLI (the pattern is stored as custom G-code) | chevron order read from the G-code: 0 next to the placeholder cube, +0.005 per chevron. The user's reading in hand beats a photo (photo said 8, hand said 10) |
+| Retraction | Orca GUI tower sliced by the 2.4.2 CLI, then `retraction_steps.py` | 0 below 1.4 mm, then +0.2 mm per mm of height; take the lowest clean band, but do not lower a working value on a test that cannot tell values apart |
+| LEGO fits | `calibration/lego_fit_coupon.stl` | tested against real LEGO parts and the user's printed hip and torso |
+
+When the user sends a GUI job straight from Orca, the file name on the printer is Orca's
+(`<test>_PLA_<time>.gcode.3mf`), and it prints with whatever filament the GUI had selected: check the
+nozzle temperature in `printer_status` against the preset before trusting the result.
 
 ## LEGO minifigure reference
 
@@ -167,11 +194,13 @@ real shapes live in the `s/` subfiles, the patterned `.dat` only carry decals):
 | Plate stud | 4.8 diameter, 1.7 tall |
 
 Printed holes come out about 0.15 mm small plus first-layer squish: model a stud-receiving hole at
-5.0 x 5.0 and 1.9 deep. Keep at least 0.78 mm of wall; widen toward the thick side if the hole is
+5.1 x 5.1 and 1.9 deep (5.0 fit a baseplate only just, 5.1 fits). Keep at least 0.78 mm of wall; widen toward the thick side if the hole is
 off-center.
 
 A snap lip cannot work on a solid printed torso and a split 4 mm pin breaks when printed: use a
-plain friction cylinder instead (3.85 mm peg in a 4.0 mm hole). A ball resting on a hole's rim holds
+plain friction cylinder instead. 3.85 in the 4.0 hole was accepted but loose; the fit coupon tests
+3.90/3.95/4.00. If friction is not enough, the next step is an acorn peg, which needs a deeper
+shoulder hole with a groove, so a new torso. A ball resting on a hole's rim holds
 nothing at minifig scale.
 
 A figure advertised "500%" is 5x a minifig: 20% brings it back, and the torso width confirms it.
