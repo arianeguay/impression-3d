@@ -12,7 +12,7 @@ import argparse, glob, json, os
 
 ROOT = os.path.expanduser("~/.var/app/io.github.softfever.OrcaSlicer/config/OrcaSlicer")
 USER = f"{ROOT}/user/default"
-PROFILES = os.path.join(os.path.dirname(os.path.realpath(__file__)), "..", "..", "profiles")
+PROFILES = os.path.join(os.path.dirname(os.path.realpath(__file__)), "..", "profiles")
 DEFAULT_MACHINE = "Flashforge Adventurer 5M 0.4 Nozzle - custom"
 DEFAULT_PROCESS = "0.20mm Standard @Flashforge AD5M 0.4 Nozzle - Settings"
 DEFAULT_FILAMENT = "Polymaker Panchroma Neon PLA"

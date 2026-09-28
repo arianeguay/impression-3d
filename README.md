@@ -5,10 +5,11 @@ printer, job started.
 
 | Path | What |
 |---|---|
-| `skill/` | The `3d-print` Claude skill (symlinked to `~/.claude/skills/3d-print`): workflow, printer facts, lessons |
-| `skill/scripts/printer.py` | Printer over the LAN: status, files, upload, start, pause/resume/cancel, clear-platform, camera snapshot |
-| `skill/scripts/slice.py` | OrcaSlicer CLI wrapper: presets flattened, per-object supports, summary of time/grams/supports |
-| `skill/scripts/orca_presets.py` | Turns Orca user presets into files the CLI accepts |
+| `skills/` | Three Claude skills, each symlinked into `~/.claude/skills/`: `print-design` (model to oriented parts), `print-prepare` (parts to verified G-code, calibration), `print-run` (send, watch, cancel, diagnose) |
+| `reference.md` | Setup shared by the three skills: printer, slicers, filaments, where files go |
+| `scripts/printer.py` | Printer over the LAN: status, files, upload, start, pause/resume/cancel, clear-platform, camera snapshot |
+| `scripts/slice.py` | OrcaSlicer CLI wrapper: presets flattened, per-object supports, summary of time/grams/supports |
+| `scripts/orca_presets.py` | Turns Orca user presets into files the CLI accepts |
 | `profiles/` | Named override sets for `slice.py --profile` (`figurine`: the settings that printed Oogie; `lego_minifig` extends it via `_extends`) |
 | `standards/` | Dimension standards with the values that print and fit here (`lego_minifig.json`) |
 | `mcp/server.py` | MCP server exposing the same tools to Claude Code |
@@ -18,7 +19,7 @@ printer, job started.
 
 ```bash
 python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
-ln -s "$PWD/skill" ~/.claude/skills/3d-print
+for s in skills/*/; do ln -s "$PWD/$s" ~/.claude/skills/; done
 claude mcp add --scope user impression-3d -- "$PWD/.venv/bin/python" "$PWD/mcp/server.py"
 ```
 

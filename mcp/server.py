@@ -5,15 +5,15 @@ import tempfile
 
 from mcp.server.mcpserver import Image, MCPServer
 
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.realpath(__file__)), "..", "skill", "scripts"))
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.realpath(__file__)), "..", "scripts"))
 import printer  # noqa: E402
 import slice as slicer  # noqa: E402
 
 server = MCPServer(
     "impression-3d",
     instructions=(
-        "Flashforge Adventurer 5M on the LAN, sliced with OrcaSlicer. Read the 3d-print skill for the "
-        "workflow and the lessons behind every default. Never start a print without first looking at "
+        "Flashforge Adventurer 5M on the LAN, sliced with OrcaSlicer. The print-design, print-prepare and "
+        "print-run skills hold the workflow and the lessons behind every default. Never start a print without first looking at "
         "printer_camera or having the user confirm the bed is empty."
     ),
 )
