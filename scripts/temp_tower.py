@@ -13,7 +13,7 @@ HERE = os.path.dirname(os.path.realpath(__file__))
 sys.path.insert(0, HERE)
 import slice as slicer  # noqa: E402
 
-TOWER = os.path.join(HERE, "..", "..", "calibration", "temp_tower_lego.stl")
+TOWER = os.path.join(HERE, "..", "calibration", "temp_tower_lego.stl")
 
 
 def main():
