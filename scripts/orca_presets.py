@@ -10,7 +10,7 @@ overrides kept in the repo's profiles/ folder (e.g. "figurine").
 """
 import argparse, glob, json, os
 
-ROOT = os.path.expanduser("~/.var/app/io.github.softfever.OrcaSlicer/config/OrcaSlicer")
+ROOT = os.path.expanduser("~/.var/app/com.orcaslicer.OrcaSlicer/config/OrcaSlicer")
 USER = f"{ROOT}/user/default"
 PROFILES = os.path.join(os.path.dirname(os.path.realpath(__file__)), "..", "profiles")
 DEFAULT_MACHINE = "Flashforge Adventurer 5M 0.4 Nozzle - custom"
