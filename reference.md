@@ -34,9 +34,14 @@ Deliver files to `~/Téléchargements/`, versioned (`<model> - <filament> - v<N>
 
 Presets the user has (each inherits the Flashforge generic of its type):
 
-- `Polymaker Panchroma Neon PLA`: 205 C (215 first layer), bed 50, flow 0.98, pressure advance 0.045,
-  retraction 0.8 mm, `#00F263`. All calibrated 2026-09-27, see `calibration/README.md`. Fluorescent
-  under UV, does **not** glow in the dark.
+- `Polymaker Panchroma Neon PLA`: 210 C (215 first layer), bed 50, flow 0.98, pressure advance 0.025,
+  retraction 0.8 mm, `#00F263`, and the `figurine` profile has no z offset. Fluorescent under UV,
+  does **not** glow in the dark. These are the values that printed the first Oogie whole
+  (2026-09-27). The calibration of 2026-09-27 moved them to 205 C, pressure advance 0.045 and a
+  -0.02 mm z offset (`calibration/README.md`); with exactly those three changes the v14, v15 and v16
+  plates lost every small part on a raft, so the preset went back on 2026-09-28 (copy of the
+  calibrated preset: `Polymaker Panchroma Neon PLA.json.bak-205` in Orca's filament folder).
+  **In test, not proven:** the first print after the revert (head v17) was still being judged.
 - `IEMAI Glow PETG`: 250 C, bed 65, 10 mm3/s. Glow-in-the-dark pigment is abrasive.
 - `Flashforge Duramic PLA`: 210 C.
 

@@ -44,11 +44,17 @@ What the CLI demands, each learned by a failure:
 - **One part per job while tuning an assembly.** The user asked for it after three mixed plates
   failed: a 10-minute single-part test isolates the fix and wastes nothing. Only batch parts that
   already printed well.
-- **Mixed plates of small parts failed where single parts did not.** The v14 plate (seven parts,
-  1 h, packed within 85 x 45 mm) went to spaghetti around the supported parts by 2 mm of height,
-  while each part had printed clean alone on a bed wiped the same way. Unresolved: a bed re-level
-  was started afterwards, and printing by object (`print_sequence`) with the parts spread out is
-  the untested next step. Until a mixed plate prints clean, print small parts one per job.
+- **A plate of several small parts prints by object, spread out.** `--set process.print_sequence="by object"`
+  finishes one part before starting the next, and Orca spreads them over the bed. On v15 three of
+  seven parts failed and none took another down, where the v14 plate (by layer, packed within
+  85 x 45 mm) lost everything. It costs time: 1 h 40 against 1 h, since a lone tiny part waits on
+  its minimum layer time. Add `process.reduce_crossing_wall=1` and `process.z_hop=0.6`.
+- **Compare a failed G-code with one that printed, setting by setting, before guessing.** Diff the
+  `; key = value` header lines of the two files: the v14 and v15 failures differed from the plate
+  that printed Oogie whole by exactly three values, all from a calibration.
+- **Orca 2.4.2 changed a default under the same profile**: `slowdown_for_curled_perimeters` went
+  from 1 (Orca 2.0.0) to 0. `figurine` sets it back to 1, since small overhangs are where it matters.
+  A slicer upgrade is a settings change: diff a G-code from each version.
 - **Tree supports on tiny parts turn into spaghetti.** Branches under 1 mm get knocked over. Glue
   does not help, since the plate bond is not what breaks. Use normal (grid) supports, and support
   only the parts that need it (per-object settings).
@@ -61,6 +67,12 @@ What the CLI demands, each learned by a failure:
 Order: first layer, temperature, flow, pressure advance, retraction, then the LEGO fit coupon last
 (fits move with flow and pressure advance). Results go in `calibration/README.md`, values into the
 filament preset in Orca. Each test is printed through print-run.
+
+**A calibration on test pieces does not carry over to tiny parts by itself.** The Panchroma
+calibration of 2026-09-27 (205 C, pressure advance 0.045, -0.02 mm z offset) read clean on a
+temperature tower whose levels are 26 x 14 mm, and small figure parts on rafts failed with it on
+three plates in a row. Before adopting a calibrated value for figurines, print one small raft part
+(the Oogie head is the hardest) with it; until then keep the values that already printed the figure.
 
 | Test | How | Reading it |
 |---|---|---|
