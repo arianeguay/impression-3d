@@ -54,7 +54,11 @@ Orca only reads presets at startup, so the user must fully quit and reopen it.
    after a failure. Look through `printer_camera` (or the user confirms), then `printer_clear_platform`
    if the last job is `BUILDING_COMPLETED`, then `printer_start`, then `printer_status` to confirm
    `BUILDING_FROM_SD`. The camera sees most of the plate but not its front edge: say so if in doubt.
-7. **Record the project** in `projects/<name>/`: final parts and what changed, with the measurement
+7. **Watch the job and cancel on the first spaghetti, without asking.** When checking a running
+   print, loose strands or a part that stops rising is enough: `printer_job cancel` at once, then
+   tell the user. On 2026-09-28 a full Oogie plate was flagged at 20 minutes and left running on a
+   request for confirmation while the user was away; 40 minutes later nothing was recoverable.
+8. **Record the project** in `projects/<name>/`: final parts and what changed, with the measurement
    that justified it, then commit.
 
 Deliver files to `~/Téléchargements/`, versioned (`<model> - <filament> - v<N>.3mf/.gcode`).
@@ -97,7 +101,7 @@ save, `~M23 0:/user/<name>` start, `~M119` state, `~M105` temps, `~M27` progress
 No access code needed. **After a job ends the printer sits in `BUILDING_COMPLETED`** until someone confirms on the touchscreen;
 `~M23` and `~M24` are acknowledged and ignored meanwhile, so `printer.py start` refuses unless READY.
 **Files cannot be deleted over the LAN:** `~M30` answers `ok` with any path
-form (`0:/user/`, `/data/`, bare name) and deletes nothing. Deleting is done on the touchscreen. Pause/resume/cancel (`~M25`/`~M24`/`~M26`) are written but untested.
+form (`0:/user/`, `/data/`, bare name) and deletes nothing. Deleting is done on the touchscreen. Pause/resume/cancel (`~M25`/`~M24`/`~M26`) are written but untested: after a cancel, confirm with `printer_status` that the state left `BUILDING_FROM_SD`.
 
 The HTTP API on 8898 (serial + lowercase check code from `printer.env`) does two things 8899
 cannot: `/detail` (status, layer, ETA) and `/control` with `stateCtrl_cmd`/`setClearPlatform`, the only
@@ -111,6 +115,10 @@ Measured on the Oogie Boogie Lego figure (MakerWorld, designed at 500%, printed 
   final Oogie plate failed completely, with settings byte-identical to a plate that had just
   printed; a wipe with rubbing alcohol fixed it. Glue does not help adhesion here. Ask for a wipe
   before re-slicing anything.
+- **Mixed plates of small parts failed where single parts did not.** The v14 plate (seven parts,
+  1 h) went to spaghetti around the supported parts while each part had printed clean alone on a
+  bed wiped the same way. Unresolved: a bed re-level was started afterwards. Until a mixed plate
+  prints clean, print small parts one per job.
 - **Tree supports on tiny parts turn into spaghetti.** Branches under 1 mm get knocked over. Glue
   does not help, since the plate bond is not what breaks. Use normal (grid) supports, plus a 3-layer
   raft on parts that sit on a point, and support only the parts that need it (per-object settings).
