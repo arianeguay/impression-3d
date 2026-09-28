@@ -55,7 +55,8 @@ Orca only reads presets at startup, so the user must fully quit and reopen it.
    if the last job is `BUILDING_COMPLETED`, then `printer_start`, then `printer_status` to confirm
    `BUILDING_FROM_SD`. The camera sees most of the plate but not its front edge: say so if in doubt.
 7. **Watch the job and cancel on the first spaghetti, without asking.** When checking a running
-   print, loose strands or a part that stops rising is enough: `printer_job cancel` at once, then
+   print, check the camera every 3 minutes for the first 15, then every 10: the v14 failure was
+   already visible at 2 mm, on the first check. Loose strands or a part that stops rising is enough: `printer_job cancel` at once, then
    tell the user. On 2026-09-28 a full Oogie plate was flagged at 20 minutes and left running on a
    request for confirmation while the user was away; 40 minutes later nothing was recoverable.
 8. **Record the project** in `projects/<name>/`: final parts and what changed, with the measurement
@@ -106,6 +107,10 @@ form (`0:/user/`, `/data/`, bare name) and deletes nothing. Deleting is done on 
 The HTTP API on 8898 (serial + lowercase check code from `printer.env`) does two things 8899
 cannot: `/detail` (status, layer, ETA) and `/control` with `stateCtrl_cmd`/`setClearPlatform`, the only
 remote way out of `BUILDING_COMPLETED`. `printer.py clear-platform` wraps it.
+**`/detail`'s layer counter does not follow the G-code.** The v14 plate ended `BUILDING_COMPLETED`
+at `printLayer` 217 of 298 with the whole file executed (`printProgress` 1.0); layer 217 of that
+G-code is at 11.98 mm, not the 17.32 mm top. `printProgress` is the position in the file: to know the
+height being printed, find the last `;Z:` line before that fraction of the file's bytes.
 
 ## What failed before, and the fix that worked
 
