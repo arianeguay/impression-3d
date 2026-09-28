@@ -22,6 +22,10 @@ geometry goes back to **print-design**, one caused by settings to **print-prepar
    then confirm with `printer_status` that the state left `BUILDING_FROM_SD`, then tell the user.
    On 2026-09-28 a full Oogie plate was flagged at 20 minutes and left running on a request for
    confirmation while the user was away; 40 minutes later nothing was recoverable.
+   **On a by-object plate**, one failed part does not take the others down, so let it finish and
+   reprint it alone. Cancel anyway when spaghetti piles up next to the nozzle for more than a few
+   minutes (a blob can set around the hotend), as the v15 head did.
+   `scripts/where.py <local.gcode>` gives the part being printed, its height and the minutes left.
 4. **When it ends**, say so and ask for a photo of the parts before judging a fit or a surface.
 
 ## Diagnosing a failure
@@ -34,7 +38,16 @@ geometry goes back to **print-design**, one caused by settings to **print-prepar
   it is adhesion, a raft or supports; a part that grew then fell is a knock-over or a weak layer.
   Map photos to heights with `printProgress` (below), and parts to plate positions with the
   G-code's `; printing object` coordinates.
+- **Reading a camera frame:** compare each part's visible height to the height `where.py` gives;
+  a part clearly shorter than that has failed even with no strands in sight (v15 arm at "7.8 mm"
+  was a low mess). A green bit away from every part is debris from a broken part, not ooze. A
+  part lying on its side has toppled: parts are printed in their final orientation. The printhead
+  hides the front-right corner, and with the room lights off the frame shows only glowing shapes;
+  say what could not be seen.
 - A part that broke or toppled because of its shape, or a joint that does not fit: print-design.
+- **A calibration that shows 0:00 and stops moving** (status `calibrate_doing`, nozzle held at
+  120 C) is stuck: after 15 more minutes, power it off and on (see Power). That aborts the bed
+  levelling, so the previous mesh stays in use.
 
 ## Power
 
