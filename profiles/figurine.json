@@ -14,7 +14,7 @@
   "process.max_bridge_length": "10",
   "process.outer_wall_acceleration": "2000",
   "process.outer_wall_speed": "60",
-  "process.raft_contact_distance": "0.2",
+  "process.raft_contact_distance": "0.1",
   "process.raft_first_layer_density": "90%",
   "process.raft_first_layer_expansion": "2",
   "process.seam_position": "back",

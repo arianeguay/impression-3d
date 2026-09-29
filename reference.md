@@ -41,7 +41,8 @@ Presets the user has (each inherits the Flashforge generic of its type):
   -0.02 mm z offset (`calibration/README.md`); with exactly those three changes the v14, v15 and v16
   plates lost every small part on a raft, so the preset went back on 2026-09-28 (copy of the
   calibrated preset: `Polymaker Panchroma Neon PLA.json.bak-205` in Orca's filament folder).
-  **In test, not proven:** the first print after the revert (head v17) was still being judged.
+  The revert alone was not enough: head v17 (210 C) printed clean up to the eyes, then its lower half
+  came off the raft. Head v18 added a 0.1 mm raft contact gap and printed whole (2026-09-29).
 - `IEMAI Glow PETG`: 250 C, bed 65, 10 mm3/s. Glow-in-the-dark pigment is abrasive.
 - `Flashforge Duramic PLA`: 210 C.
 
