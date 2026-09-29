@@ -45,6 +45,9 @@ geometry goes back to **print-design**, one caused by settings to **print-prepar
   hides the front-right corner, and with the room lights off the frame shows only glowing shapes;
   say what could not be seen.
 - A part that broke or toppled because of its shape, or a joint that does not fit: print-design.
+- **A long thin strand across the plate at the start** (seen on head v16 and v18) is filament that
+  oozed while the nozzle waited to reach temperature, dragged away when printing began. It is not
+  the part failing: pull it off by the end away from the nozzle, and do not cancel for it.
 - **A calibration that shows 0:00 and stops moving** (status `calibrate_doing`, nozzle held at
   120 C) is stuck: after 15 more minutes, power it off and on (see Power). That aborts the bed
   levelling, so the previous mesh stays in use.

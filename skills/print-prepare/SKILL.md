@@ -59,6 +59,11 @@ What the CLI demands, each learned by a failure:
   does not help, since the plate bond is not what breaks. Use normal (grid) supports, and support
   only the parts that need it (per-object settings).
 - **The user wants supports released at a 0.3 mm gap minimum** (top, bottom and XY); 0.2 welded in PETG.
+- **The raft contact gap is a different setting, and 0.1 is what holds a small part on its raft.**
+  `raft_contact_distance` (now 0.1 in `figurine`) is the gap between the raft and the part, not the
+  support gap. At 0.2 the Oogie head (upright on the ring around its neck socket) and an arm on
+  its edge let go of the raft once they were 8 to 10 mm tall; at 0.1 the head printed whole in PLA.
+  Cost: a rougher ring where the raft was, filed off, and hidden on the neck anyway.
 - **Bridges**: `bridge_no_support=1` keeps supports out of blind cavities (torso bottom, head socket)
   that must stay clear for a mating part.
 
