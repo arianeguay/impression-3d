@@ -42,12 +42,15 @@ geometry goes back to **print-design**, one caused by settings to **print-prepar
   a part clearly shorter than that has failed even with no strands in sight (v15 arm at "7.8 mm"
   was a low mess). A green bit away from every part is debris from a broken part, not ooze. A
   part lying on its side has toppled: parts are printed in their final orientation. The printhead
-  hides the front-right corner, and with the room lights off the frame shows only glowing shapes;
-  say what could not be seen.
+  hides whatever is between it and the camera; say what could not be seen. A dark frame after a
+  power cut means the USB lamp is off (see `reference.md`): ask for it to be switched on.
 - A part that broke or toppled because of its shape, or a joint that does not fit: print-design.
 - **A long thin strand across the plate at the start** (seen on head v16 and v18) is filament that
   oozed while the nozzle waited to reach temperature, dragged away when printing began. It is not
   the part failing: pull it off by the end away from the nozzle, and do not cancel for it.
+- **A new resonance or whoosh at the end of moves** after an interrupted calibration is the
+  vibration compensation missing: run it alone from the printer's settings (a few minutes). It
+  cleared the noise on 2026-09-29.
 - **A calibration that shows 0:00 and stops moving** (status `calibrate_doing`, nozzle held at
   120 C) is stuck: after 15 more minutes, power it off and on (see Power). That aborts the bed
   levelling, so the previous mesh stays in use.
