@@ -35,5 +35,7 @@ Clearance that grips but turns, measured on this printer: about **0.15 mm on the
 - v16 (head alone, same values): failed near the base.
 - v17 (head alone, 210 C / PA 0.025 / no z offset): clean up to the eyes, then the lower half left
   the raft.
-- v18 (as v17, raft contact gap 0.1 instead of 0.2): **whole and clean**. Still to reprint: torso,
-  one leg, two arms.
+- v18 (as v17, raft contact gap 0.1 instead of 0.2): **whole and clean**.
+- v19 (one arm alone, same settings): whole. Fits the old torso a little better, not perfectly.
+- v20 (arm, right leg, torso, by object, spread out): all three whole. The second Oogie's parts are
+  complete; fits on the new torso still to be judged.

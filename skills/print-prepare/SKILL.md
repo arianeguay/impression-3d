@@ -48,7 +48,8 @@ What the CLI demands, each learned by a failure:
   finishes one part before starting the next, and Orca spreads them over the bed. On v15 three of
   seven parts failed and none took another down, where the v14 plate (by layer, packed within
   85 x 45 mm) lost everything. It costs time: 1 h 40 against 1 h, since a lone tiny part waits on
-  its minimum layer time. Add `process.reduce_crossing_wall=1` and `process.z_hop=0.6`.
+  its minimum layer time. Add `process.reduce_crossing_wall=1` and `process.z_hop=0.6`. With the
+  0.1 mm raft gap and 210 C, the v20 plate (arm on a raft, leg, torso) printed every part whole.
 - **Compare a failed G-code with one that printed, setting by setting, before guessing.** Diff the
   `; key = value` header lines of the two files: the v14 and v15 failures differed from the plate
   that printed Oogie whole by exactly three values, all from a calibration.
