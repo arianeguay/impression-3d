@@ -1,13 +1,14 @@
 # Oogie Boogie at 500% (~22 cm)
 
 The MakerWorld model "Oogie Boogie * 500% ~22 cm" (HeiHei) printed at its native size, in
-Polymaker Panchroma Neon PLA (210 C, pressure advance 0.025), 0.2 mm layers. The designer printed it
+Polymaker Panchroma Neon PLA (210 C, pressure advance 0.025), 0.2 mm layers. Parts were
+exported with `scripts/export_3mf.py`; the arms were then laid on their edge. The designer printed it
 in PLA on a multicolour machine; this one is single colour. Joints are the designer's, unchanged.
 
 | Plate | Parts | Supports | Time | Filament |
 |---|---|---|---|---|
 | 1 | `Head_4.stl` | 3-layer raft (0.1 mm contact gap) + normal supports | 2 h 10 | 49 g |
-| 2 | `Flosse_6_edge.stl` x 2 (arms) | raft + supports | 2 h 00 | 44 g |
+| 2 | `Flosse_6_edge.stl`, `Flosse_7_edge.stl` (mirror pair) | raft + supports | 2 h 00 | 44 g |
 | 3 | `Torso_9.stl`, `hip_2.stl` | supports, no raft | 2 h 55 | 81 g |
 | 4 | `Leg_11.stl`, `Leg_13.stl` (mirror pair) | supports, no raft | 1 h 40 | 51 g |
 
