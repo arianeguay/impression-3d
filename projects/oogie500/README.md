@@ -11,7 +11,8 @@ in PLA on a multicolour machine; this one is single colour. Joints are the desig
 | 3 | `Torso_9.stl`, `hip_2.stl` | supports, no raft | 2 h 55 | 81 g |
 | 4 | `Leg_11.stl`, `Leg_13.stl` (mirror pair) | supports, no raft | 1 h 40 | 51 g |
 
-Supports everywhere: 0.3 mm top, bottom and XY gaps, 45 degree threshold. Parts over 27 mm tall
+Supports: 0.3 mm top, bottom and XY gaps on plates 1 and 2; the user asked for a larger gap after
+the arms, so plates 3 and 4 use 0.4 mm (two 0.2 mm layers). 45 degree threshold. Parts over 27 mm tall
 cannot print by object on the AD5M (the head would hit finished parts), so each plate is one group.
 
 Height over the square root of bed contact decided the rafts: head 17.5 (22 mm2 under an 83 mm

@@ -60,6 +60,7 @@ What the CLI demands, each learned by a failure:
   does not help, since the plate bond is not what breaks. Use normal (grid) supports, and support
   only the parts that need it (per-object settings).
 - **The user wants supports released at a 0.3 mm gap minimum** (top, bottom and XY); 0.2 welded in PETG.
+  At 0.2 mm layers the user asked for 0.4 (two whole layers) after the 500% arms (2026-10-01).
 - **The raft contact gap is a different setting, and 0.1 is what holds a small part on its raft.**
   `raft_contact_distance` (now 0.1 in `figurine`) is the gap between the raft and the part, not the
   support gap. At 0.2 the Oogie head (upright on the ring around its neck socket) and an arm on
