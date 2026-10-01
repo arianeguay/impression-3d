@@ -9,7 +9,7 @@ in PLA on a multicolour machine; this one is single colour. Joints are the desig
 |---|---|---|---|---|
 | 1 | `Head_4.stl` | 3-layer raft (0.1 mm contact gap) + normal supports | 2 h 10 | 49 g |
 | 2 | `Flosse_6_edge.stl`, `Flosse_7_edge.stl` (mirror pair) | raft + supports | 2 h 00 | 44 g |
-| 3 | `Torso_9.stl`, `hip_2.stl` | supports, no raft | 2 h 55 | 81 g |
+| 3 | `Torso_9.stl`, `hip_2_lying.stl` | supports, no raft | 2 h 45 | 75 g |
 | 4 | `Leg_11.stl`, `Leg_13.stl` (mirror pair) | supports, no raft | 1 h 40 | 51 g |
 
 Supports: 0.3 mm top, bottom and XY gaps on plates 1 and 2; the user asked for a larger gap after
@@ -27,3 +27,9 @@ part), arms 10.7 in the file's pose. Torso 0.6, legs 2.7, hip 2.8 need none.
   later, and cancelled 15 minutes in.
 - Arms laid on their edge (`Flosse_6_edge.stl`, the stable pose with the most contact): 126 mm2 on
   the raft, ratio 4.0, weakest layer 56 mm2 at the tip. Clean past 2 mm, where the first try failed.
+- Torso and hip, hip standing as in the file (2026-10-01, 0.4 mm support gaps): spaghetti at
+  1.6 mm. Part of the hip's underside sat on supports whose first layer is spaced lines; per the
+  user, holding it, the first layer lifted and the rest followed. Laid on its widest face
+  (`hip_2_lying.stl`, 830 mm2 of solid part on the bed instead of 523, a quarter fewer supports,
+  studs horizontal as on the minifig hip), after an alcohol wipe and with the enclosure lid off,
+  the first layers went down flat.
