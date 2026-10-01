@@ -34,6 +34,9 @@ AD5M_SERIAL=<serial from printer.py status / M115>
 AD5M_CHECK_CODE=<LAN-mode code from the touchscreen, lowercase>
 ```
 
+Any value may be a 1Password reference instead (`op://Dev/env-impression-3d/AD5M_CHECK_CODE`).
+`printer.py` resolves it with `op read`, so the laptop keeps no secret on disk.
+
 ## Not done yet
 
 The MCP server runs over stdio, so it serves Claude Code on this laptop only. Reaching it from
