@@ -11,6 +11,7 @@ printer, job started.
 | `scripts/slice.py` | OrcaSlicer CLI wrapper: presets flattened, per-object supports, summary of time/grams/supports |
 | `scripts/watch.py` | Unattended watch of a running print from an always-on host: camera frames judged by `claude -p`, cancel on a confirmed failure, Pushover notices |
 | `scripts/where.py` | Which part and height a running print is at, and the minutes left, from the local G-code |
+| `scripts/export_3mf.py` | Bambu / MakerWorld 3MF to one STL per object, placement applied (Orca cannot slice those 3MFs) |
 | `scripts/orca_presets.py` | Turns Orca user presets into files the CLI accepts |
 | `profiles/` | Named override sets for `slice.py --profile` (`figurine`: the settings that printed Oogie; `lego_minifig` extends it via `_extends`) |
 | `standards/` | Dimension standards with the values that print and fit here (`lego_minifig.json`) |
