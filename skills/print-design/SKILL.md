@@ -57,6 +57,10 @@ use **print-prepare** to slice them.
   Minimizing supported overhang alone is not enough: Oogie's flipper arm standing on its thin tip
   had the least support (19 mm2) and the cleanest pocket, and snapped at its 2.3 mm2 weakest layer.
   On its edge (weakest layer 17.7 mm2, supports split between pocket and outside) it printed whole.
+- **A designer's file orientation is not a print orientation for a raft part.** The 500% Oogie
+  arm as placed in the MakerWorld file touched its raft on 15 mm2 and failed at 1.2 mm; laid on
+  its edge (`trimesh.poses.compute_stable_poses`, then the pose with the most contact) it sits on
+  126 mm2. Run the contact check below on every part before slicing, at every scale.
 - **Measure every part's bed contact before deciding supports.** Section the mesh 0.1 mm above its
   lowest point and compare the area to the height. A part whose height over the square root of its
   contact area is above ~5 topples at small scale, even when its overhangs would print unsupported
