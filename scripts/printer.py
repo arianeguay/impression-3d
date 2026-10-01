@@ -10,7 +10,7 @@ Two channels, each doing what the other cannot:
   remote way out of BUILDING_COMPLETED.
 The camera is MJPEG on 8080. Credentials live in ~/.config/impression-3d/printer.env.
 """
-import json, os, socket, sys, time, urllib.request
+import json, os, socket, subprocess, sys, time, urllib.request
 
 ENV = os.path.expanduser("~/.config/impression-3d/printer.env")
 
@@ -23,6 +23,9 @@ def _config():
                 k, v = line.strip().split("=", 1)
                 cfg[k] = v
     cfg.update({k: os.environ[k] for k in cfg if k in os.environ})
+    for k, v in cfg.items():
+        if v.startswith("op://"):
+            cfg[k] = subprocess.run(["op", "read", v], check=True, capture_output=True, text=True).stdout.strip()
     return cfg
 
 

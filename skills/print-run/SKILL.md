@@ -76,10 +76,13 @@ empty plate (2026-09-30): the judge answered `unsure`, not `failure`, for a part
 The printer's plug is a Home Assistant switch (see `reference.md`):
 
 ```bash
-set -a; . ~/.config/impression-3d/printer.env; set +a
+op run --env-file ~/.config/impression-3d/printer.env -- sh -c '
 curl -s -X POST -H "Authorization: Bearer $HA_TOKEN" -H "Content-Type: application/json" \
-  -d '{"entity_id":"switch.clim_salon_socket_1"}' "$HA_URL/api/services/switch/turn_off"   # or turn_on
+  -d "{\"entity_id\":\"switch.clim_salon_socket_1\"}" "$HA_URL/api/services/switch/turn_off"'   # or turn_on
 ```
+
+On a host whose `printer.env` holds plain values instead of `op://` references, source it
+(`set -a; . ~/.config/impression-3d/printer.env; set +a`) and run the `curl` directly.
 
 Cut power only when `printer_status` is `READY` and the nozzle is under 50 C: the hotend fan must
 run after a print, or heat creeps up the filament path. After `turn_on`, poll `printer_status` until
