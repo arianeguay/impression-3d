@@ -53,8 +53,17 @@ def main():
     parts = sorted(set(re.findall(r"^; printing object (\S+)", open(o.gcode).read(), re.M)))
     start = time.time()
     notify(o.notify, "Print watch", f"watching {os.path.basename(o.gcode)}: {', '.join(parts)}")
+    misses = 0
     while True:
-        d = printer.http("/detail")["detail"]
+        try:
+            d = printer.http("/detail")["detail"]
+            misses = 0
+        except OSError as e:  # the printer drops off Wi-Fi for seconds at a time
+            misses += 1
+            if misses == 5:
+                notify(o.notify, "Print watch: printer unreachable", str(e)[:200])
+            time.sleep(60)
+            continue
         if d["status"] not in ("printing", "pausing", "paused"):
             notify(o.notify, "Print ended", f"status {d['status']}, {d['printProgress']:.0%} of the file")
             return
