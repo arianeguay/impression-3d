@@ -55,6 +55,22 @@ geometry goes back to **print-design**, one caused by settings to **print-prepar
   120 C) is stuck: after 15 more minutes, power it off and on (see Power). That aborts the bed
   levelling, so the previous mesh stays in use.
 
+## Long prints: watch from apollon
+
+The laptop cannot stay up for an 8 h print, so `scripts/watch.py` runs on `apollon` (copies of
+`printer.py`, `where.py`, `watch.py` in `~/impression-3d/scripts/`, `printer.env` in
+`~/.config/impression-3d/`, `claude` in `~/.local/bin`). Copy the uploaded G-code there and start it
+detached once the print is running:
+
+```bash
+ssh apollon 'export PATH=$HOME/.local/bin:$PATH; nohup python3 ~/impression-3d/scripts/watch.py \
+  ~/impression-3d/gcode/<file>.gcode --notify /home/ariane/ops/scripts/pushover-notify.sh \
+  > ~/impression-3d/watch.log 2>&1 &'
+```
+
+A failure verdict is re-checked on a second frame a minute later before cancelling. Dry run on an
+empty plate (2026-09-30): the judge answered `unsure`, not `failure`, for a part it could not see.
+
 ## Power
 
 The printer's plug is a Home Assistant switch (see `reference.md`):
