@@ -33,3 +33,23 @@ part), arms 10.7 in the file's pose. Torso 0.6, legs 2.7, hip 2.8 need none.
   (`hip_2_lying.stl`, 830 mm2 of solid part on the bed instead of 523, a quarter fewer supports,
   studs horizontal as on the minifig hip), after an alcohol wipe and with the enclosure lid off,
   the first layers went down flat.
+
+## Second statue (2026-10-01)
+
+- Head: completed with the plate 1 G-code. The palate inside the mouth came out full of
+  spaghetti. Cause: the base Orca process sets `support_on_build_plate_only = 1`, so the mouth's
+  roof, which would rest on the jaw, got no support at all.
+- Arms face down (`arm_nice_A.stl` 64 mm2, `arm_nice_B.stl` 116 mm2 of raft contact; both lie on
+  the same face, to give both arms the nicer outward side): the first try went to spaghetti at
+  2 mm, and a second stopped before the raft. Cause: the Z offset was out of calibration; after a
+  recalibration the pair printed clean. The result is worse than on the edge: the face on the
+  supports is rough, and the shoulder stud fits loose.
+- Torso + `hip_2_lying.stl` and legs: as on the first statue.
+
+## For the third statue
+
+- Arms: back to `Flosse_6_edge.stl` / `Flosse_7_edge.stl`. Face down is the worst pose, worse
+  than the edge.
+- Head: slice with `--set process.support_on_build_plate_only=0` so the palate is supported from
+  the jaw. Tree supports (`support_type` tree) are easier to pull out of the mouth cavity than
+  normal ones; `slice.py`'s per-object `SUPPORT` hardcodes `normal(auto)`, so that needs an option.
