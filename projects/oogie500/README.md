@@ -50,6 +50,8 @@ part), arms 10.7 in the file's pose. Torso 0.6, legs 2.7, hip 2.8 need none.
 
 - Arms: back to `Flosse_6_edge.stl` / `Flosse_7_edge.stl`. Face down is the worst pose, worse
   than the edge.
-- Head: slice with `--set process.support_on_build_plate_only=0` so the palate is supported from
-  the jaw. Tree supports (`support_type` tree) are easier to pull out of the mouth cavity than
-  normal ones; `slice.py`'s per-object `SUPPORT` hardcodes `normal(auto)`, so that needs an option.
+- Head (2026-10-02, `--set process.support_on_build_plate_only=0 --tree Head_4`, 3 h 12, 64 g):
+  the palate came out clean, supported from the jaw. The tip, which is the bottom of the print
+  and the head's only raft contact (22 mm2), came out open with infill showing: tree supports
+  gave it a sparse contact where the normal supports of the first two heads gave a solid one.
+  Next head: normal supports with `support_on_build_plate_only=0`, no `--tree`.
