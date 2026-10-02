@@ -16,7 +16,7 @@ import orca_presets  # noqa: E402
 
 ORCA = ["flatpak", "run", "--command=orca-slicer", "com.orcaslicer.OrcaSlicer"]
 SUPPORT = ('\n    <metadata key="enable_support" value="1"/>'
-              '\n    <metadata key="support_type" value="normal(auto)"/>'
+              '\n    <metadata key="support_type" value="{kind}(auto)"/>'
               '\n    <metadata key="raft_layers" value="{raft}"/>')
 
 
@@ -29,7 +29,7 @@ def _run(args, out_dir):
 
 
 def slice_models(out_dir, models, filament=orca_presets.DEFAULT_FILAMENT, sets=(), supported=(),
-                 profile=None, no_raft=()):
+                 profile=None, no_raft=(), tree=()):
     out_dir = os.path.abspath(out_dir)
     os.makedirs(out_dir, exist_ok=True)
     for f in ("result.json", "plate_1.gcode"):
@@ -55,7 +55,8 @@ def slice_models(out_dir, models, filament=orca_presets.DEFAULT_FILAMENT, sets=(
 
         def tag(m):
             name = re.search(r'value="([^"]+)\.stl"', m.group(1)).group(1)
-            return m.group(1) + SUPPORT.format(raft=0 if name in no_raft else 3)
+            return m.group(1) + SUPPORT.format(raft=0 if name in no_raft else 3,
+                                          kind="tree" if name in tree else "normal")
         with zipfile.ZipFile(src, "w", zipfile.ZIP_DEFLATED) as zo:
             for i, d in items:
                 if i.filename == "Metadata/model_settings.config":
@@ -99,8 +100,10 @@ def main():
     a.add_argument("--set", action="append", default=[])
     a.add_argument("--supported", action="append", default=[])
     a.add_argument("--no-raft", action="append", default=[], help="supported model that gets no raft")
+    a.add_argument("--tree", action="append", default=[], help="supported model that gets tree supports")
     o = a.parse_args()
-    print(json.dumps(slice_models(o.out_dir, o.models, o.filament, o.set, o.supported, o.profile, o.no_raft), indent=2))
+    print(json.dumps(slice_models(o.out_dir, o.models, o.filament, o.set, o.supported, o.profile, o.no_raft,
+                                   o.tree), indent=2))
 
 
 if __name__ == "__main__":
