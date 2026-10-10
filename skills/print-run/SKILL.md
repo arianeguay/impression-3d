@@ -78,7 +78,7 @@ The printer's plug is a Home Assistant switch (see `reference.md`):
 ```bash
 op run --env-file ~/.config/impression-3d/printer.env -- sh -c '
 curl -s -X POST -H "Authorization: Bearer $HA_TOKEN" -H "Content-Type: application/json" \
-  -d "{\"entity_id\":\"switch.clim_salon_socket_1\"}" "$HA_URL/api/services/switch/turn_off"'   # or turn_on
+  -d "{\"entity_id\":\"switch.bureau_imprimante_3d_socket_1\"}" "$HA_URL/api/services/switch/turn_off"'   # or turn_on
 ```
 
 On a host whose `printer.env` holds plain values instead of `op://` references, source it
