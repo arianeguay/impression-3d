@@ -28,3 +28,9 @@ Clips and ball joints are left as designed: scaling every dimension by 5 keeps t
 
 The coupon answers whether PETG's fit on this printer moves the 0.16 clearance: in PETG a 4.9 neck stud
 gripped a real LEGO head where PLA was loose, so studs come out fatter, not smaller.
+
+## Results
+
+- Neck coupon v1 (2026-10-11, bed at 85 C: the preset's textured-plate temperature, inherited from
+  the Flashforge generic PETG; its 65 C is the smooth-plate value): the head ring goes onto the stud
+  "perfectly". The 24.25 socket over the 24.0 stud holds in Glow PETG, so v1 prints with it unchanged.
