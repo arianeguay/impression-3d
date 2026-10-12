@@ -18,7 +18,7 @@ Printed in Flashforge Duramic PLA.
 
 | Part | Orientation | Supports | Status |
 |---|---|---|---|
-| `mazda3-2018.stl` | upright on its wheels | under the underbody (from 1.7 mm up) and the mirrors | sliced, not printed yet |
+| `mazda3-2018.stl` | upright on its wheels | under the underbody (from 1.7 mm up) and the mirrors | v2 with a 3-layer raft: 2 h 23, 17.3 g, in black |
 | `mazda3-2025.stl` | upright on its wheels (4460 mm hatchback, so 69.7 mm; 57 mm2 of contact, ratio 3.2) | same, plus a 3-layer raft from v2 | v1 failed, v2: 2 h 19, 17.7 g |
 
 Height over the square root of contact: 23.2 / 7.0 = 3.3, under the ~5 where small parts topple.
@@ -30,3 +30,6 @@ Height over the square root of contact: 23.2 / 7.0 = 3.3, under the ~5 where sma
   support base lines curled up and the nozzle dragged them into a tangle. Thin isolated 0.08 mm
   support lines in fast-cooled PLA curl; v2 adds a 3-layer raft so the tires and supports start on a
   solid base.
+- 2025 v2 (raft): past v1's failure height cleanly; paused at 55% (about 11 mm) and stopped
+  (2026-10-12, cause not recorded). The watcher answered "unsure" throughout: it cannot see dark
+  filament on this plate.
