@@ -13,7 +13,7 @@ two arms (shoulder clip and claw hand), skull. Printed at 5x in IEMAI Glow PETG 
 | Scale 5x | 500% |
 | Head socket 4.97 to 4.85 (24.25 at 500%, measures 24.17 to 24.23 on the faceted mesh), by moving its wall vertices | the neck stud is 24.0 at 500%: the source's 0.17 clearance becomes 0.85 and the head would flop; 0.16 is the Oogie head's fit |
 | Head: the four tiny edges (0.004 to 0.027 mm) that two sheets of the face share get their own vertex copies, nudged 0.002 mm into each sheet | v1 kept them and Orca printed no head layer from 8 to 12 mm: the head came out in two pieces. pymeshfix closed the mesh but filled in part of the nose and an eye. A copy left on the same point is merged back when the STL is read, hence the nudge |
-| Shoulder sockets: the two floating side walls (solid bodies 5 and 6) left out, jaws opened from 1.95 to 2.06 (10.3 at 500%) over the 2.16 ball | v1 fused one wall to one jaw and printed the jaws parting across layers: both arms cracked at the socket rim snapping onto the torso |
+| Shoulder clips: the two floating side walls (solid bodies 5 and 6) left out, gap unchanged (about 10 mm over the 10.8 mm ball at 500%) | v1 fused one wall across the clip and it cracked on both arms; a real LEGO skeleton arm has an open C clip at both ends, as the user's own piece shows. A coupon with the gap opened to 10.3 to 10.5 held without cracking but was too loose |
 | Zero-volume shards dropped | debris in the source |
 | Legs: 1 mm cut off their rounded back | lying as designed they touch the plate on 19 mm2 at 32 mm tall (ratio 7.4); with the flat, 210 mm2 (2.1). Standing would put the hip clip across layers |
 | Arms: turned so the socket jaws part horizontally (within a layer), then 1 mm cut off the side on the plate | 264 mm2 of contact at 25.5 mm tall. The claw hand now flexes across layers; it holds nothing at this size |
@@ -41,4 +41,6 @@ gripped a real LEGO head where PLA was loose, so studs come out fatter, not smal
   and band faces sat 7 mm up on supports (0.4 mm gap) and their skin tore off with the supports:
   PETG welds to supports at 0.4.
 - Shoulder coupon v1: last 20 mm of `arm_a` as printed, to try on the v1 torso before the reprint.
-- Head and arms v2: supports at 0.6 mm (three 0.2 mm layers) top and bottom, 0.5 mm XY.
+- Shoulder coupon v1 (gap 10.3 to 10.5): no crack, but too loose on the torso's ball.
+- Head and arms v3 (original gap, open clip, clip parting within a layer): supports at 0.6 mm (three
+  0.2 mm layers) top and bottom, 0.5 mm XY; 2 h 34, 56 g.

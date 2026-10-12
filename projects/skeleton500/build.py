@@ -11,7 +11,6 @@ import trimesh
 SCALE = 5
 NECK_SOCKET_D = 24.25 / SCALE  # stud 4.8 (24.0 at 500%), source socket 4.97 (0.85 loose); the faceted socket measures ~0.1 under its vertex radius
 SOCKET_GRIP_TOP = 1.6  # the 4.97 ring runs to z 1.5, then opens into a 5.62 cavity
-JAW_GAP = 2.06  # shoulder socket jaws 1.95 apart over a 2.16 ball: both arms cracked snapping on at 500%
 FLAT = 1.0  # mm cut off the rounded side that meets the plate at 500%: legs 19 to 190 mm2, arms 19 to 248 mm2
 
 def _edges(f):
@@ -103,20 +102,9 @@ ring_r = np.ptp(ring, 0)[0] / 2
 grip = (r > ring_r - 0.08) & (r < ring_r + 0.1) & (head.vertices[:, 2] < SOCKET_GRIP_TOP)  # wall vertices wander 2.43 to 2.54; the cavity step starts at 2.67
 head.vertices[grip, :2] = c + (head.vertices[grip, :2] - c) * (NECK_SOCKET_D / 2 / r[grip, None])
 
-# the socket's two floating side walls (solid[5:7]) are left out; the jaws open further so the ball snaps in with half the spread
-fused = []
-for arm in arms:
-    arm = arm.copy()
-    v = arm.vertices
-    jaw = v[:, 1] > arm.bounds[1, 1] - 2.4
-    lo, hi = jaw & (np.abs(v[:, 2] - 1.65) < 0.07), jaw & (np.abs(v[:, 2] - 3.62) < 0.07)
-    widen = (JAW_GAP - (v[hi, 2].mean() - v[lo, 2].mean())) / 2
-    v[lo, 2] -= widen
-    v[hi, 2] += widen
-    arm.vertices = v
-    fused.append(arm)
+# the socket's two floating side walls (solid[5:7]) are left out: v1 fused one across the jaws and it cracked
 
-parts = {"torso": torso, "leg_a": legs[0], "leg_b": legs[1], "arm_a": fused[0], "arm_b": fused[1], "head": head}
+parts = {"torso": torso, "leg_a": legs[0], "leg_b": legs[1], "arm_a": arms[0], "arm_b": arms[1], "head": head}
 def most_contact_pose(m, keep):
     """Stable pose with the most bed contact among those whose rotation passes keep(t)."""
     best = None
