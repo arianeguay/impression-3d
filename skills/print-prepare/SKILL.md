@@ -17,12 +17,14 @@ The Flatpak sandbox cannot read `/tmp` or the Claude scratchpad: keep every inpu
 ```bash
 S=~/dev/src/impression-3d/scripts
 python3 $S/slice.py ~/Téléchargements/_slice head.stl torso.stl --profile lego_minifig \
-  --supported head --no-raft hip
+  --supported head --supported hip --no-raft hip
 ```
 
 It prints the G-code path, time, grams and support moves per object (the check that supports
 landed only where intended). `--supported NAME` gives that part supports and a 3-layer raft,
-`--no-raft NAME` supports only, `--set kind.key=value` overrides one setting.
+`--no-raft NAME` drops the raft from a part that is also `--supported` (alone it gives that part no
+supports at all, silently: the first Mazda slice came out with none), `--set kind.key=value`
+overrides one setting.
 
 What the CLI demands, each learned by a failure:
 
@@ -50,6 +52,14 @@ What the CLI demands, each learned by a failure:
   85 x 45 mm) lost everything. It costs time: 1 h 40 against 1 h, since a lone tiny part waits on
   its minimum layer time. Add `process.reduce_crossing_wall=1` and `process.z_hop=0.6`. With the
   0.1 mm raft gap and 210 C, the v20 plate (arm on a raft, leg, torso) printed every part whole.
+  **Only for parts under ~27 mm tall:** by object, Orca 2.4.2 silently left the 50 mm arm, the hand
+  and the wrist off a jumbo-minifig plate and sliced the rest. Count `; printing object` per part.
+- **Check every part has model extrusion on every layer.** A mesh with non-manifold edges slices
+  without an error but with empty layers: the 500% skeleton head printed in two pieces, with no head
+  layer from 8 to 12 mm, only its supports. Sum the non-`Support` extrusion per object per `;Z:` and
+  flag any layer inside the part's height where it is zero.
+- **PETG welds to supports at a 0.4 mm gap.** The skeleton legs' faces that sat on supports lost
+  their skin with them. Use 0.6 mm (three 0.2 mm layers) top and bottom, 0.5 mm XY, for PETG.
 - **Compare a failed G-code with one that printed, setting by setting, before guessing.** Diff the
   `; key = value` header lines of the two files: the v14 and v15 failures differed from the plate
   that printed Oogie whole by exactly three values, all from a calibration.

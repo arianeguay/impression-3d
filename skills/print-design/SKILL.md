@@ -38,6 +38,21 @@ use **print-prepare** to slice them.
 - A fit that is unsure: print `calibration/lego_fit_coupon.stl` (three sizes per joint) before a
   whole part.
 
+- **Scaling up grows clearances too.** A minifig skeleton at 500% had 0.85 mm of play at the neck
+  (0.17 at 1x): refit every joint at the target scale, the same as when scaling down.
+- **A printed snap must flex within a layer.** Both 500% skeleton arms cracked at the shoulder clip,
+  whose two halves parted across the layers; turned so they part sideways, the same clip flexed
+  without cracking. Scaling keeps a molded snap's strain, not a printed one's: layer bonds are the
+  weak direction.
+- **Look for floating shells in the source.** The skeleton's shoulder clip had two side walls
+  floating 0.08 mm off it (0.4 mm at 500%); fusing one closed the clip and it cracked. The real
+  LEGO arm has an open C clip: drop such shells rather than fuse them, after checking the real part.
+- **Make every mesh manifold before slicing, without changing its shape.** Non-manifold edges make
+  Orca drop layers silently (see print-prepare). pymeshfix closed the skeleton head but filled in
+  its nose and an eye; giving each sheet its own copy of the shared edge's vertices fixed it, with
+  each copy nudged 0.002 mm into its sheet, since an STL merges vertices left on the same point
+  (`projects/skeleton500/build.py`, `split_nonmanifold`).
+
 ## Orientation and supports
 
 - **Start from the designer's orientation and the user's, not a clever one.** Flipping Oogie's hip

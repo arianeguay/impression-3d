@@ -43,7 +43,10 @@ Presets the user has (each inherits the Flashforge generic of its type):
   calibrated preset: `Polymaker Panchroma Neon PLA.json.bak-205` in Orca's filament folder).
   The revert alone was not enough: head v17 (210 C) printed clean up to the eyes, then its lower half
   came off the raft. Head v18 added a 0.1 mm raft contact gap and printed whole (2026-09-29).
-- `IEMAI Glow PETG`: 250 C, bed 65, 10 mm3/s. Glow-in-the-dark pigment is abrasive.
+- `IEMAI Glow PETG`: 250 C, 10 mm3/s. The bed actually runs at **85 C**: the AD5M plate is textured
+  and the preset's `textured_plate_temp` (85, inherited from the Flashforge generic PETG) wins over its
+  65 C `hot_plate_temp`; IEMAI says 60 to 70. The skeleton neck coupon fitted at 85. Dry it 8 to 10 h
+  at 70 C (IEMAI). Supports need 0.6 mm gaps (see print-prepare). Glow pigment is abrasive.
 - `Flashforge Duramic PLA`: 210 C.
 
 A new filament preset: copy one of these JSONs in `user/default/filament/`,
@@ -51,3 +54,7 @@ change `name`, `filament_settings_id`, temps, colour, plus a matching `.info` (`
 `setting_id`). Orca only reads presets at startup, so the user must fully quit and reopen it.
 
 Tiny detailed figures: PLA over PETG. PETG strings between parts and bonds to supports.
+
+The user also has a smooth PEI plate, without its handle, used once and failed. Flashforge: after
+levelling on smooth PEI, set the Z offset to +0.1 mm (the textured plate's settings over-squish it).
+No PETG directly on it (it can tear the PEI); a glue stick layer as release if needed.
