@@ -18,6 +18,7 @@ Printed in Flashforge Duramic PLA.
 
 | Part | Orientation | Supports | Status |
 |---|---|---|---|
-| `mazda3-2018.stl` | upright on its wheels | under the underbody (from 1.7 mm up) and the mirrors | first print |
+| `mazda3-2018.stl` | upright on its wheels | under the underbody (from 1.7 mm up) and the mirrors | sliced, not printed yet |
+| `mazda3-2025.stl` | upright on its wheels (4460 mm hatchback, so 69.7 mm; 57 mm2 of contact, ratio 3.2) | same | v1: 2 h 11, 17 g |
 
 Height over the square root of contact: 23.2 / 7.0 = 3.3, under the ~5 where small parts topple.
