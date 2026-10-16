@@ -68,6 +68,10 @@ ssh apollon 'export PATH=$HOME/.local/bin:$PATH; nohup python3 ~/impression-3d/s
   > ~/impression-3d/watch.log 2>&1 < /dev/null & disown'
 ```
 
+It reads supports failing inside a hollow part as "stringing": on the plague mask shell it logged
+strings piling up inside the shell from 68 mm and judged "ok" every time but once, while the tree
+supports there were going to spaghetti. Check such a part yourself.
+
 Start a new watcher for every print: each one exits when its print ends, so a plate started later
 runs unwatched (brick plate B did). Do not `pkill -f watch.py` over ssh: the pattern matches the ssh
 command's own shell and kills it before the watcher starts.
