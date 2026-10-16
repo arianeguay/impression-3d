@@ -28,3 +28,7 @@ read from tape measurements: a printed test decides the scale.
 - Shell v1, Creality CR-PETG (240 C, bed 70): tree supports at 0.6 mm gaps (the beak is a long
   cavity that grid supports would fill solid), 5 mm outer brim to hold the 1.6 mm face edge down.
   3 h 41, 80 g; grid supports had sliced to 6 h 37 and 180 g in PLA.
+- Shell v1 result (2026-10-16): first start printed in the air (filament not loaded right; the
+  watcher answered "ok, plate empty" at 0%, it cannot tell a dry start from a real one). Second
+  start: the shape is right and is kept, but the slim tree supports turned into spaghetti, with
+  strings across every supported area that were cut off by hand. See print-prepare.
