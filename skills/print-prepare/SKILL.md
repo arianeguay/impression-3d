@@ -69,6 +69,13 @@ What the CLI demands, each learned by a failure:
 - **Tree supports on tiny parts turn into spaghetti.** Branches under 1 mm get knocked over. Glue
   does not help, since the plate bond is not what breaks. Use normal (grid) supports, and support
   only the parts that need it (per-object settings).
+- **Slim tree supports in PETG turn into spaghetti on a large part too.** The plague mask shell
+  (2026-10-15, CR-PETG, `support_style = tree_slim`, `support_speed = 150`, retraction 0.8 mm)
+  came out with the right shape but strings across every supported area, cut off by hand. Not yet
+  separated: branches knocked over at speed, or PETG oozing on the travels between many thin
+  branches. Never use `tree_slim` with PETG. Try `tree_strong` with `support_speed` at 60 or below,
+  and check the strings on the camera at the first branches; if they come back, use grid supports
+  and pay the time (the shell sliced to 6 h 37 in grid against 3 h 41 in trees).
 - **The user wants supports released at a 0.3 mm gap minimum** (top, bottom and XY); 0.2 welded in PETG.
   At 0.2 mm layers the user asked for 0.4 (two whole layers) after the 500% arms (2026-10-01).
 - **The raft contact gap is a different setting, and 0.1 is what holds a small part on its raft.**
