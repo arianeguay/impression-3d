@@ -43,10 +43,14 @@ Presets the user has (each inherits the Flashforge generic of its type):
   calibrated preset: `Polymaker Panchroma Neon PLA.json.bak-205` in Orca's filament folder).
   The revert alone was not enough: head v17 (210 C) printed clean up to the eyes, then its lower half
   came off the raft. Head v18 added a 0.1 mm raft contact gap and printed whole (2026-09-29).
-- `IEMAI Glow PETG`: 250 C, 10 mm3/s. The bed actually runs at **85 C**: the AD5M plate is textured
-  and the preset's `textured_plate_temp` (85, inherited from the Flashforge generic PETG) wins over its
-  65 C `hot_plate_temp`; IEMAI says 60 to 70. The skeleton neck coupon fitted at 85. Dry it 8 to 10 h
-  at 70 C (IEMAI). Supports need 0.6 mm gaps (see print-prepare). Glow pigment is abrasive.
+- `IEMAI Glow PETG`: 250 C, 10 mm3/s. The bed actually runs at **85 C**: the CLI slices with
+  `curr_bed_type = Cool Plate`, so `cool_plate_temp` (85, inherited from the Flashforge generic PETG)
+  sets `M190`, not the preset's 65 C `hot_plate_temp` nor its textured-plate value; IEMAI says 60 to
+  70. The skeleton neck coupon fitted at 85. Dry it 8 to 10 h at 70 C (IEMAI). Supports need 0.6 mm
+  gaps (see print-prepare). Glow pigment is abrasive.
+- `Creality CR-PETG` (black and white, 2 kg refills on a reusable spool): 240 C, bed 70 set in
+  `cool_plate_temp` (Creality: 230 to 250 C, bed 60 to 100, 40 to 80 mm/s), 10 mm3/s. Check `M190` in
+  any new preset's G-code: the bed temperature lives in the field the CLI's bed type reads.
 - `Flashforge Duramic PLA`: 210 C.
 
 A new filament preset: copy one of these JSONs in `user/default/filament/`,
