@@ -3,7 +3,7 @@
 Source: `~/dev/3d-prints/models/plague+doc+mask_stls.zip`, ten STLs: the shell (face and beak,
 153 x 196 x 183 mm, about 1.6 mm wall, laid face-opening down), two threaded eye rings (70 mm), two
 knurled nuts (68 mm), three knurled filter caps (41 mm) and two vent caps (40 mm). All watertight.
-Printed in black Flashforge Duramic PLA.
+Fit test in black Flashforge Duramic PLA; the mask itself in Creality CR-PETG.
 
 ## Fit, measured on the source
 
@@ -24,3 +24,7 @@ read from tape measurements: a printed test decides the scale.
   on with glasses. It leans inward enough to need supports (about 3200 mm2 over 45 degrees);
   without them it would droop. 0.2 mm standard process, 1 h 14, 28 g. A cut at 60 mm (whole eye
   area) sliced to 4 h 24 and 114 g, half the mask, so it was dropped.
+- Face band v1 result (2026-10-15): the size is right with glasses, so the mask prints at 100%.
+- Shell v1, Creality CR-PETG (240 C, bed 70): tree supports at 0.6 mm gaps (the beak is a long
+  cavity that grid supports would fill solid), 5 mm outer brim to hold the 1.6 mm face edge down.
+  3 h 41, 80 g; grid supports had sliced to 6 h 37 and 180 g in PLA.
