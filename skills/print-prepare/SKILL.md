@@ -73,7 +73,9 @@ What the CLI demands, each learned by a failure:
   (2026-10-15, CR-PETG, `support_style = tree_slim`, `support_speed = 150`, retraction 0.8 mm)
   came out with the right shape but strings across every supported area, cut off by hand. Not yet
   separated: branches knocked over at speed, or PETG oozing on the travels between many thin
-  branches. Never use `tree_slim` with PETG. Try `tree_strong` with `support_speed` at 60 or below,
+  branches. The watcher's log dates it: clean up to 59 mm, strings from 68 mm, where the branches
+  started rising 70 to 150 mm into the beak; the short branches under the face stayed clean, which
+  points at tall slim branches swaying. Never use `tree_slim` with PETG. Try `tree_strong` with `support_speed` at 60 or below,
   and check the strings on the camera at the first branches; if they come back, use grid supports
   and pay the time (the shell sliced to 6 h 37 in grid against 3 h 41 in trees).
 - **The user wants supports released at a 0.3 mm gap minimum** (top, bottom and XY); 0.2 welded in PETG.
