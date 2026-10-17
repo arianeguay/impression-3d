@@ -66,6 +66,9 @@ What the CLI demands, each learned by a failure:
 - **Orca 2.4.2 changed a default under the same profile**: `slowdown_for_curled_perimeters` went
   from 1 (Orca 2.0.0) to 0. `figurine` sets it back to 1, since small overhangs are where it matters.
   A slicer upgrade is a settings change: diff a G-code from each version.
+- **`--supported` pins the support style per object** (grid, or `tree_strong` with `--tree`).
+  Before 2026-10-16 it set only the type, and the style came from the global process: `tree_slim`
+  without a profile, the style never to use with PETG.
 - **Tree supports on tiny parts turn into spaghetti.** Branches under 1 mm get knocked over. Glue
   does not help, since the plate bond is not what breaks. Use normal (grid) supports, and support
   only the parts that need it (per-object settings).

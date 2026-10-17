@@ -17,6 +17,7 @@ import orca_presets  # noqa: E402
 ORCA = ["flatpak", "run", "--command=orca-slicer", "com.orcaslicer.OrcaSlicer"]
 SUPPORT = ('\n    <metadata key="enable_support" value="1"/>'
               '\n    <metadata key="support_type" value="{kind}(auto)"/>'
+              '\n    <metadata key="support_style" value="{style}"/>'
               '\n    <metadata key="raft_layers" value="{raft}"/>')
 
 
@@ -56,7 +57,8 @@ def slice_models(out_dir, models, filament=orca_presets.DEFAULT_FILAMENT, sets=(
         def tag(m):
             name = re.search(r'value="([^"]+)\.stl"', m.group(1)).group(1)
             return m.group(1) + SUPPORT.format(raft=0 if name in no_raft else 3,
-                                          kind="tree" if name in tree else "normal")
+                                          kind="tree" if name in tree else "normal",
+                                          style="tree_strong" if name in tree else "grid")
         with zipfile.ZipFile(src, "w", zipfile.ZIP_DEFLATED) as zo:
             for i, d in items:
                 if i.filename == "Metadata/model_settings.config":
