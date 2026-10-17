@@ -17,6 +17,9 @@ use **print-prepare** to slice them.
    to find studs, holes and pins.
 2. **Export each object to STL** with its build transform applied (flip triangle winding when the
    transform's determinant is negative). MakerWorld / Bambu Studio 3MFs cannot be sliced as-is.
+   **A MakerWorld STL zip can miss parts.** The KnockKnock zip held 3 STLs; its TPU bar sleeve
+   was only in the print profile's 3MF. MakerWorld answers 403 to a fetch, so ask the user for
+   the profile's 3MF or a screenshot of its plate list before planning.
 3. **Fix geometry by editing vertices**, not by scaling a part up or down to cheat a fit (see Fits).
 4. **Choose each part's orientation and support need** (see Orientation), and state them.
 5. **Record the project** in `projects/<name>/`: final parts and what changed, with the measurement
