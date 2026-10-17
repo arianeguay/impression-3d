@@ -23,7 +23,7 @@ The repo's `.venv` has `trimesh numpy scipy shapely manifold3d` for mesh work.
 | Slicer | `com.orcaslicer.OrcaSlicer` 2.4.2 (Flatpak), the user's GUI and the scripts' CLI. The older `io.github.softfever.OrcaSlicer` 2.0.0 is no longer used: its AD5M start G-code heats the nozzle with `M104` and purges without waiting, where 2.4.2 waits with `M109`. Every Oogie part up to v14 was sliced by 2.0.0 |
 | Orca config | `~/.var/app/com.orcaslicer.OrcaSlicer/config/OrcaSlicer/` (`user/default/{machine,process,filament}`) |
 | Machine preset | `Flashforge Adventurer 5M 0.4 Nozzle - custom` (inherits the system AD5M 0.4 preset) |
-| Profiles | `profiles/lego_minifig.json` (extends figurine), `profiles/figurine.json`: 0.08 mm layers, slow walls, grid supports at 0.3 mm gap, 45 degree threshold |
+| Profiles | `profiles/lego_minifig.json` (extends figurine), `profiles/figurine.json`: 0.08 mm layers, slow walls, grid supports at 0.3 mm gap, 45 degree threshold. `profiles/functional.json` for utility parts in PETG: 0.2 mm layers, 3 walls, 15% gyroid, PETG support gaps. Without a profile Orca gives 2 walls and 10% infill, too weak for a part that takes knocks |
 | Projects | `projects/<name>/`: final oriented parts plus a README of every geometry change and its evidence |
 | Standards | `standards/lego_minifig.json`: the tested value for every minifig joint on this printer |
 | Calibration | `calibration/`: test models and `README.md`, the log of every calibration result |
@@ -52,6 +52,9 @@ Presets the user has (each inherits the Flashforge generic of its type):
   `cool_plate_temp` (Creality: 230 to 250 C, bed 60 to 100, 40 to 80 mm/s), 10 mm3/s. Check `M190` in
   any new preset's G-code: the bed temperature lives in the field the CLI's bed type reads.
 - `Flashforge Duramic PLA`: 210 C.
+- Unbranded PETG, grey and red (label 230-240 C up to 100 mm/s), and Giantarm PETG brown
+  (220-250 C): no preset of their own, sliced with `Creality CR-PETG` (240 C, bed 70). The red
+  printed the 164 mm knock box body clean on 2026-10-16.
 
 A new filament preset: copy one of these JSONs in `user/default/filament/`,
 change `name`, `filament_settings_id`, temps, colour, plus a matching `.info` (`base_id` = parent's

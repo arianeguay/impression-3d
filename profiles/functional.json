@@ -1,0 +1,8 @@
+{
+  "process.wall_loops": "3",
+  "process.sparse_infill_density": "15%",
+  "process.sparse_infill_pattern": "gyroid",
+  "process.support_top_z_distance": "0.6",
+  "process.support_bottom_z_distance": "0.6",
+  "process.support_object_xy_distance": "0.5"
+}
