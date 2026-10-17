@@ -17,6 +17,10 @@ sys.path.insert(0, HERE)
 import printer  # noqa: E402
 import where  # noqa: E402
 
+# apollon runs on UTC; the log is read against Montreal wall-clock time.
+os.environ["TZ"] = "America/Toronto"
+time.tzset()
+
 PROMPT = """You are watching a 3D print through a camera. Read the image at {image}.
 The printer is {status}, {progress} through the file, printing part "{part}" at {z} mm of height.
 Parts on this plate: {parts}. A failing print shows loose strands or tangled filament

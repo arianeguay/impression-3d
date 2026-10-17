@@ -72,6 +72,10 @@ It reads supports failing inside a hollow part as "stringing": on the plague mas
 strings piling up inside the shell from 68 mm and judged "ok" every time but once, while the tree
 supports there were going to spaghetti. Check such a part yourself.
 
+`watch.py` logs in Montreal time. Before 2026-10-16 it logged in apollon's UTC, and a `[18:33]`
+read as local put the knock box body's end 4 h late. Check `date` on a host before quoting a time
+from its log.
+
 Start a new watcher for every print: each one exits when its print ends, so a plate started later
 runs unwatched (brick plate B did). Do not `pkill -f watch.py` over ssh: the pattern matches the ssh
 command's own shell and kills it before the watcher starts.
