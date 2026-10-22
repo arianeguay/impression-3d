@@ -55,6 +55,10 @@ Presets the user has (each inherits the Flashforge generic of its type):
 - Unbranded PETG, grey and red (label 230-240 C up to 100 mm/s), and Giantarm PETG brown
   (220-250 C): no preset of their own, sliced with `Creality CR-PETG` (240 C, bed 70). The red
   printed the 164 mm knock box body clean on 2026-10-16.
+- `Tronxy TPU` (blue, hardness not on the listing, assumed 95A): inherits Orca's system
+  `Flashforge TPU 95A` (225 C, 3.5 mm3/s, 1.2 mm retraction), bed 45. Printed the knock box
+  sleeve clean on the first try (2026-10-22). A TPU bore modelled at the shaft's own diameter
+  sticks: give it 0.4 mm.
 
 A new filament preset: copy one of these JSONs in `user/default/filament/`,
 change `name`, `filament_settings_id`, temps, colour, plus a matching `.info` (`base_id` = parent's
