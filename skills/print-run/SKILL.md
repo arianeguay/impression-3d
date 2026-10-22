@@ -112,6 +112,9 @@ No access code needed. Pause/resume/cancel are `~M25`/`~M24`/`~M26`.
 - **After a job ends the printer sits in `BUILDING_COMPLETED`** until someone confirms on the
   touchscreen; `~M23` and `~M24` are acknowledged and ignored meanwhile, so `printer.py start`
   refuses unless READY.
+- **A cancel holds the printer in `cancel` (machine `BUSY`, move `HOMING`) until someone confirms
+  the dialog on the touchscreen**, and `start` refuses meanwhile. `printer_clear_platform` dismisses
+  it from the LAN (2026-10-22: stuck 8 min, READY right after).
 - **Files cannot be deleted over the LAN:** `~M30` answers `ok` with any path form (`0:/user/`,
   `/data/`, bare name) and deletes nothing. The user deletes on the touchscreen; list what to delete
   with `printer_files`. The six files ending in `_PLA` are Flashforge's own: keep them.
