@@ -22,7 +22,7 @@ SUPPORT = ('\n    <metadata key="enable_support" value="1"/>'
 
 
 def _run(args, out_dir):
-    subprocess.run(ORCA + args + ["--outputdir", out_dir], cwd=out_dir,
+    subprocess.run(ORCA + ["--datadir", f"{out_dir}/datadir"] + args + ["--outputdir", out_dir], cwd=out_dir,
                    stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=900)
     res = json.load(open(os.path.join(out_dir, "result.json")))
     if res.get("return_code") != 0:
@@ -37,15 +37,14 @@ def slice_models(out_dir, models, filament=orca_presets.DEFAULT_FILAMENT, sets=(
         if os.path.exists(os.path.join(out_dir, f)):
             os.remove(os.path.join(out_dir, f))
     sets = ["process.enable_support=0", "process.raft_layers=0"] + list(sets)
-    orca_presets.write(out_dir, filament=filament, profile=profile, sets=sets)
+    machine, process, fil = orca_presets.write(out_dir, filament=filament, profile=profile, sets=sets)
     local = []
     for m in models:
         dst = os.path.join(out_dir, os.path.basename(m))
         if os.path.abspath(m) != dst:
             shutil.copy(m, dst)
         local.append(os.path.basename(m))
-    settings = ["--load-settings", f"{out_dir}/machine.json;{out_dir}/process.json",
-                "--load-filaments", f"{out_dir}/filament.json"]
+    settings = ["--load-settings", f"{machine};{process}", "--load-filaments", fil]
     if supported:
         _run(["--arrange", "1", *settings, "--export-3mf", "plate.3mf", *local], out_dir)
         src = os.path.join(out_dir, "plate.3mf")
