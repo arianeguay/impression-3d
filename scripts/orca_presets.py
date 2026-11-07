@@ -8,7 +8,7 @@ The CLI rejects a user preset as-is: it needs the whole inherits chain merged, a
 and compatible_printers naming the machine and its system parent. A profile is a named set of
 overrides kept in the repo's profiles/ folder (e.g. "figurine").
 """
-import argparse, glob, json, os
+import argparse, glob, json, os, shutil
 
 ROOT = os.path.expanduser("~/.var/app/com.orcaslicer.OrcaSlicer/config/OrcaSlicer")
 USER = f"{ROOT}/user/default"
@@ -19,6 +19,8 @@ DEFAULT_FILAMENT = "Polymaker Panchroma Neon PLA"
 
 
 def system_index():
+    # Orca >= 2.5.0 packs the system presets in .opc files: the index is then empty and
+    # a preset keeps its "inherits" for Orca to resolve itself (slice.py passes --datadir).
     idx = {}
     for p in glob.glob(f"{ROOT}/system/**/*.json", recursive=True):
         try:
@@ -32,13 +34,15 @@ def system_index():
 
 def flatten(path, kind, idx):
     chain = [json.load(open(path))]
-    while chain[-1].get("inherits"):
+    while (kind, chain[-1].get("inherits")) in idx:
         chain.append(idx[(kind, chain[-1]["inherits"])])
     out = {}
     for c in reversed(chain):
         out.update(c)
-    parent = out.pop("inherits", "")
-    out.update({"from": "User", "type": kind})
+    parent = out.get("inherits", "")
+    if len(chain) > 1:
+        out.pop("inherits", None)
+    out["from"] = "User"
     return out, parent
 
 
@@ -68,9 +72,14 @@ def write(out_dir, machine=DEFAULT_MACHINE, process=DEFAULT_PROCESS, filament=DE
         kind, key = k.split(".", 1)
         cur = presets[kind].get(key)
         presets[kind][key] = [v] if isinstance(cur, list) else v
+    # Orca 2.5.0 only parses a preset that sits in a datadir's user/default/<kind>/ folder
+    dd = f"{out_dir}/datadir"
+    shutil.rmtree(dd, ignore_errors=True)
+    shutil.copytree(f"{ROOT}/system", f"{dd}/system")
     paths = []
     for kind, d in presets.items():
-        paths.append(f"{out_dir}/{kind}.json")
+        os.makedirs(f"{dd}/user/default/{kind}")
+        paths.append(f"{dd}/user/default/{kind}/{d['name']}.json")
         json.dump(d, open(paths[-1], "w"), indent=2)
     return paths
 
