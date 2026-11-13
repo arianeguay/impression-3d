@@ -1,3 +1,6 @@
 .venv/
 __pycache__/
 *.gcode
+
+# Third-party models, not redistributed
+projects/*/parts/
