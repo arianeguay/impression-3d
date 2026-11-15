@@ -58,6 +58,7 @@ def main():
     start = time.time()
     notify(o.notify, "Print watch", f"watching {os.path.basename(o.gcode)}: {', '.join(parts)}")
     misses = 0
+    check_failing = False
     while True:
         try:
             d = printer.http("/detail")["detail"]
@@ -73,8 +74,14 @@ def main():
             return
         try:
             v, part, z = judge(o.gcode, parts, d)
+            check_failing = False
         except Exception as e:  # a failed check must not end the watch
-            notify(o.notify, "Print watch: check failed", str(e)[:300])
+            # One push per run of failures: the camera refused for 1 h 45 of a print (HOM-1358).
+            if check_failing:
+                print(f"[{time.strftime('%H:%M')}] check failed again: {str(e)[:300]}", flush=True)
+            else:
+                notify(o.notify, "Print watch: check failed", str(e)[:300])
+            check_failing = True
             v, part, z = {"verdict": "unsure"}, None, None
         print(f"[{time.strftime('%H:%M')}] {part} z={z}: {v}", flush=True)
         if v["verdict"] == "failure":
