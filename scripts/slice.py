@@ -68,12 +68,18 @@ def slice_models(out_dir, models, filament=orca_presets.DEFAULT_FILAMENT, sets=(
         _run(["--arrange", "1", "--slice", "0", "plate.3mf"], out_dir)
     else:
         _run(["--arrange", "1", "--slice", "0", *settings, *local], out_dir)
-    return summarize(os.path.join(out_dir, "plate_1.gcode"))
+    info = summarize(os.path.join(out_dir, "plate_1.gcode"))
+    # Orca leaves out a model it cannot fit on the plate and still reports success (HOM-1305).
+    missing = sorted({os.path.splitext(m)[0] for m in local} - info.pop("objects"))
+    if missing:
+        raise RuntimeError(f"not in the G-code (no room on the plate?): {', '.join(missing)}")
+    return info
 
 
 def summarize(gcode):
     info = {"gcode": gcode}
     per_obj = collections.Counter()
+    info["objects"] = set()
     cur, typ = None, ""
     for line in open(gcode):
         if line.startswith("; estimated printing time (normal mode)"):
@@ -82,6 +88,7 @@ def summarize(gcode):
             info["grams"] = float(line.split("=", 1)[1])
         elif line.startswith("; printing object "):
             cur = line.split()[3].split(".stl")[0]
+            info["objects"].add(cur)
         elif line.startswith("; stop printing object"):
             cur = None
         elif line.startswith(";TYPE:"):
@@ -103,8 +110,11 @@ def main():
     a.add_argument("--no-raft", action="append", default=[], help="supported model that gets no raft")
     a.add_argument("--tree", action="append", default=[], help="supported model that gets tree supports")
     o = a.parse_args()
-    print(json.dumps(slice_models(o.out_dir, o.models, o.filament, o.set, o.supported, o.profile, o.no_raft,
-                                   o.tree), indent=2))
+    try:
+        info = slice_models(o.out_dir, o.models, o.filament, o.set, o.supported, o.profile, o.no_raft, o.tree)
+    except RuntimeError as e:
+        sys.exit(f"slice.py: {e}")
+    print(json.dumps(info, indent=2))
 
 
 if __name__ == "__main__":
