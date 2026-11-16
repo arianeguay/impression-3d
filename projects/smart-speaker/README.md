@@ -28,6 +28,9 @@ and the only overhangs are short bridges and 45 deg slopes: no supports, no raft
   manifold3d, the panel being 3.0 mm thick there), since this build has no LED strip
   (2026-11-16). Bottom-face holes 17 to 14, volume +259 mm3 against 253 for the three windows,
   still watertight.
+- `body_microusb.stl`: the floor's cable hole widened from 11.2 x 6.2 to 13 x 9 mm (2 mm corner
+  radius, same centre), so a micro-USB plug can be threaded through from outside into the
+  ESP32 DevKit V1 (2026-11-16). Volume -103 mm3, still watertight, extents unchanged.
 
 ## Hardware swap (pending)
 
@@ -36,7 +39,9 @@ use an ACEIRMC 4 ohm 5 W speaker. Speaker frame measured at 51.6 mm square (2026
 front's speaker hole is 50.0 mm round, centred 34.6 mm from both edges, so the frame spans 8.8 to
 60.4 mm and clears the magnet pockets (2.1 to 8.1 and 61.1 to 67.1) and the body's 69.3 mm inner
 width. Four lobes at 45 deg reach r = 32.7 mm: screw slots for frame holes about 38 to 44 mm apart
-(M3). The ESP32 mount waits on the board name.
+(M3). The ESP32 is a DOIT ESP32 DevKit V1, 30 pins, micro-USB, about 51.5 x 28.3 mm with
+headers soldered: it fits the 166 x 69 x 58 mm cavity anywhere and is held with double-sided tape,
+as the designer does for the USB-C breakout. The INMP441 is taped behind the mic grille window.
 
 ## Print plan
 
