@@ -43,7 +43,7 @@ geometry goes back to **print-design**, one caused by settings to **print-prepar
   was a low mess). A green bit away from every part is debris from a broken part, not ooze. A
   part lying on its side has toppled: parts are printed in their final orientation. The printhead
   hides whatever is between it and the camera; say what could not be seen. A dark frame after a
-  power cut means the USB lamp is off (see `reference.md`): ask for it to be switched on.
+  power cut means the LED light bar is off: `printer.py light on` (MCP `printer_light`).
 - A part that broke or toppled because of its shape, or a joint that does not fit: print-design.
 - **A long thin strand across the plate at the start** (seen on head v16 and v18) is filament that
   oozed while the nozzle waited to reach temperature, dragged away when printing began. It is not
