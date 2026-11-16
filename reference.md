@@ -52,6 +52,9 @@ Presets the user has (each inherits the Flashforge generic of its type):
   `cool_plate_temp` (Creality: 230 to 250 C, bed 60 to 100, 40 to 80 mm/s), 10 mm3/s. Check `M190` in
   any new preset's G-code: the bed temperature lives in the field the CLI's bed type reads.
 - `Flashforge Duramic PLA`: 210 C.
+- `Silk PLA+ Pharaonic Gold` (unbranded, 250 g spool, label 200-230 C, bed 55-65): copy of the
+  Duramic preset at 220 C (225 first layer), bed 60 in every plate field, 8 mm3/s for the silk
+  sheen. Created 2026-11-16 for the smart speaker's front, not printed yet.
 - Unbranded PETG, grey and red (label 230-240 C up to 100 mm/s), and Giantarm PETG brown
   (220-250 C): no preset of their own, sliced with `Creality CR-PETG` (240 C, bed 70). The red
   printed the 164 mm knock box body clean on 2026-10-16.
