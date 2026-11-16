@@ -11,7 +11,7 @@ Parts are renamed in `parts/` (the zip names are Fusion body numbers).
 | Part (zip name) | Size (mm) | Bed contact | Overhang > 45 deg | What it is |
 |---|---|---|---|---|
 | `front` (Body_13) | 166 x 69 x 10 | 6559 mm2 | 588 mm2, of which 297 are 6 mm square bridges at 2.1 mm | front panel: speaker hole, mic grille window (82 x 29), 3 LED windows (5.3 mm, 16.7 mm apart = the strip's pitch), 10 magnet pockets (6.1 mm, 2.1 deep). Outer face on the plate |
-| `body` (Body_29) | 171 x 80 x 63 | 12642 mm2 | 916 mm2, slopes at 45 deg and one 0.5 mm bridge strip, between 39 and 56 mm | open box, back face on the plate, USB notch |
+| `body` (Body_29) | 171 x 80 x 63 | 12642 mm2 | 916 mm2, slopes at 45 deg and one 0.5 mm bridge strip, between 39 and 56 mm | open box, back face on the plate, cable hole in the floor. A wall at x = 66.8 to 72.8 mm splits it into a speaker chamber (64.3 mm wide) and an electronics bay (96 mm); the cable hole opens into the bay |
 | `grille` (Body_02) | 67 x 67 x 6 | 3773 mm2 | 119 mm2 of 6 mm bridges | speaker grille, 121 holes |
 | `ring_155x41` (Body_08 (2)) | 155 x 41 x 3 | 1057 mm2 | 0 | stadium-shaped ring |
 | `plate_96x46` (Body_08) | 96 x 46 x 3 | 1891 mm2 | 119 mm2 | plate with a stadium cutout, 4 screw holes |
