@@ -1,0 +1,64 @@
+# Smart speaker (Bambu Lab)
+
+Source: `~/dev/3d-prints/models/Smart+Speaker+-+Bambu+Lab_stls.zip`, nine STLs, already laid
+flat in print orientation. Every part is watertight and fits the 220 mm bed. The model is the
+Vesper voice satellite (ReSpeaker Lite + XIAO ESP32-S3, MAX98357A, 2 in 5 W speaker, a 4-LED
+WS2812B strip, 20 magnets of 6 x 2 mm); its build notes are in the PDF the user downloaded.
+Parts are renamed in `parts/` (the zip names are Fusion body numbers).
+
+## Parts, measured on the source
+
+| Part (zip name) | Size (mm) | Bed contact | Overhang > 45 deg | What it is |
+|---|---|---|---|---|
+| `front` (Body_13) | 166 x 69 x 10 | 6559 mm2 | 588 mm2, of which 297 are 6 mm square bridges at 2.1 mm | front panel: speaker hole, mic grille window (82 x 29), 3 LED windows (5.3 mm, 16.7 mm apart = the strip's pitch), 10 magnet pockets (6.1 mm, 2.1 deep). Outer face on the plate |
+| `body` (Body_29) | 171 x 80 x 63 | 12642 mm2 | 916 mm2, slopes at 45 deg and one 0.5 mm bridge strip, between 39 and 56 mm | open box, back face on the plate, cable hole in the floor. A wall at x = 66.8 to 72.8 mm splits it into a speaker chamber (64.3 mm wide) and an electronics bay (96 mm); the cable hole opens into the bay |
+| `grille` (Body_02) | 67 x 67 x 6 | 3773 mm2 | 119 mm2 of 6 mm bridges | accent: speaker grille, 121 holes, 4 magnet pockets on the plate face |
+| `ring_155x41` (Body_08 (2)) | 155 x 41 x 3 | 1057 mm2 | 0 | cork liner template (the designer's cutout helper), not part of the speaker |
+| `plate_96x46` (Body_08) | 96 x 46 x 3 | 1891 mm2 | 119 mm2 | accent: frame around the mic grill, 4 magnet pockets on the plate face |
+| `strip_96x20` (Body_10) | 96 x 20 x 3 | 1836 mm2 | 59 mm2 | accent: LED strip plate, 2 magnet pockets, 3 LED dots (3.1 mm, 16.5 mm apart) |
+| `cover_86x36` (Body_02 (2)) | 86 x 36 x 3 | 2817 mm2 | 0 | accent: mic grill, printed with no top or bottom shell (designer: rectilinear infill) |
+| `cap_a`, `cap_b` (Body_06) | 17 x 19 x 3 | 299 mm2 | 3 mm2 | brackets for the LED strip and the ReSpeaker; not needed in this build |
+
+Every part sits on a large flat face (height over the square root of its contact area is under 1),
+and the only overhangs are short bridges and 45 deg slopes: no supports, no raft.
+
+## Changes
+
+- `front_noled.stl`: the three LED windows filled (5.8 x 5.8 x 3.0 mm boxes unioned with
+  manifold3d, the panel being 3.0 mm thick there), since this build has no LED strip
+  (2026-11-16). Bottom-face holes 17 to 14, volume +259 mm3 against 253 for the three windows,
+  still watertight.
+- `strip_noled.stl`: the accent strip's three LED dots filled (3.5 mm cylinders through its
+  3 mm), 2026-11-16. Bottom-face holes 5 to 2, volume +67.0 mm3 against 67.9, still watertight.
+- `body_microusb.stl`: the floor's cable hole widened from 11.2 x 6.2 to 13 x 9 mm (2 mm corner
+  radius, same centre), so a micro-USB plug can be threaded through from outside into the
+  ESP32 DevKit V1 (2026-11-16). Volume -103 mm3, still watertight, extents unchanged.
+
+## Hardware swap (pending)
+
+The user's parts replace the ReSpeaker Lite and XIAO with INMP441 mics and an ESP32 board, and
+use an ACEIRMC 4 ohm 5 W speaker. Speaker frame measured at 51.6 mm square (2026-11-16): the
+front's speaker hole is 50.0 mm round, centred 34.6 mm from both edges, so the frame spans 8.8 to
+60.4 mm and clears the magnet pockets (2.1 to 8.1 and 61.1 to 67.1) and the body's 69.3 mm inner
+width. Four lobes at 45 deg reach r = 32.7 mm: screw slots for frame holes about 38 to 44 mm apart
+(M3). The ESP32 is a DOIT ESP32 DevKit V1, 30 pins, micro-USB, about 51.5 x 28.3 mm with
+headers soldered: it fits the 166 x 69 x 58 mm cavity anywhere and is held with double-sided tape,
+as the designer does for the USB-C breakout. The INMP441 is taped behind the mic grille window.
+
+## How it goes together (from the MakerWorld photos)
+
+The body's open side is the front. `front` is the base plate that sits in that opening, outer
+face out; the speaker and the mic board mount behind it. The accent parts sit on its outer face,
+held by magnets in pockets on their plate faces: their visible face is the top of the print.
+
+## Print plan
+
+- White, `Overture PLA White`: `body_microusb`, `grille`, `plate_96x46`.
+- Gold, `Silk PLA+ Pharaonic Gold`: `front_noled`, `cover_86x36`, `strip_noled`. This is the
+  designer's split (his "accent" plate holds exactly these three): the coloured base plate shows
+  through the seams between the white parts and around them, and the mic grill shows through
+  the white frame's cutout. About 36 cm3, 45 g.
+- The base plate's visible face is the one on the bed: gold silk there takes the plate's finish.
+  The other accents show their top face.
+- Not printed: `ring_155x41` (cork template), `cap_a`, `cap_b` (brackets for parts not used).
+- The designer asks for supports on for the magnet pockets.
