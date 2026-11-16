@@ -32,8 +32,11 @@ and the only overhangs are short bridges and 45 deg slopes: no supports, no raft
 ## Hardware swap (pending)
 
 The user's parts replace the ReSpeaker Lite and XIAO with INMP441 mics and an ESP32 board, and
-use an ACEIRMC 4 ohm 5 W speaker. Mounts for those wait on the speaker frame width and the ESP32
-board name.
+use an ACEIRMC 4 ohm 5 W speaker. Speaker frame measured at 51.6 mm square (2026-11-16): the
+front's speaker hole is 50.0 mm round, centred 34.6 mm from both edges, so the frame spans 8.8 to
+60.4 mm and clears the magnet pockets (2.1 to 8.1 and 61.1 to 67.1) and the body's 69.3 mm inner
+width. Four lobes at 45 deg reach r = 32.7 mm: screw slots for frame holes about 38 to 44 mm apart
+(M3). The ESP32 mount waits on the board name.
 
 ## Print plan
 
