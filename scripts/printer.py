@@ -3,11 +3,12 @@
 
 usage: printer.py status | list | upload <file.gcode> [name] | start <name>
                   | pause | resume | cancel | clear-platform | snapshot <out.jpg>
+                  | light on|off
 
 Two channels, each doing what the other cannot:
 - TCP 8899 legacy protocol, no credentials: upload, start, status, file list.
-- HTTP 8898 API, needs the check code: detailed status and clear-platform, which is the only
-  remote way out of BUILDING_COMPLETED.
+- HTTP 8898 API, needs the check code: detailed status, the LED light bar, and clear-platform,
+  which is the only remote way out of BUILDING_COMPLETED.
 The camera is MJPEG on 8080. Credentials live in ~/.config/impression-3d/printer.env.
 """
 import json, os, socket, subprocess, sys, time, urllib.request
@@ -137,6 +138,11 @@ def clear_platform():
     return legacy(lambda p: p.cmd("~M119"))
 
 
+def light(state):
+    http("/control", {"cmd": "lightControl_cmd", "args": {"status": {"on": "open", "off": "close"}[state]}})
+    return legacy(lambda p: p.cmd("~M119"))
+
+
 def snapshot(out_path):
     s = urllib.request.urlopen(f"http://{HOST}:8080/?action=stream", timeout=10)
     buf = b""
@@ -170,6 +176,8 @@ def main(argv):
             print(job(op))
         elif op == "clear-platform":
             print(clear_platform())
+        elif op == "light":
+            print(light(args[0]))
         elif op == "snapshot":
             print(snapshot(args[0]))
         else:
