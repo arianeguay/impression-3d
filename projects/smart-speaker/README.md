@@ -53,10 +53,12 @@ held by magnets in pockets on their plate faces: their visible face is the top o
 
 ## Print plan
 
-- White, `Overture PLA White`: `body_microusb`, `front_noled`, `grille`.
-- Gold, `Silk PLA+ Pharaonic Gold`: `plate_96x46`, `cover_86x36`, `strip_noled` (the parts in
-  orange on the designer's photo; two colours, user's choice, 2026-11-16). About 19 cm3, 25 g.
-- The accents' visible face is their top, so the plate type does not show on them; only the
-  base plate's margins show its plate face.
+- White, `Overture PLA White`: `body_microusb`, `grille`, `plate_96x46`.
+- Gold, `Silk PLA+ Pharaonic Gold`: `front_noled`, `cover_86x36`, `strip_noled`. This is the
+  designer's split (his "accent" plate holds exactly these three): the coloured base plate shows
+  through the seams between the white parts and around them, and the mic grill shows through
+  the white frame's cutout. About 36 cm3, 45 g.
+- The base plate's visible face is the one on the bed: gold silk there takes the plate's finish.
+  The other accents show their top face.
 - Not printed: `ring_155x41` (cork template), `cap_a`, `cap_b` (brackets for parts not used).
 - The designer asks for supports on for the magnet pockets.
