@@ -63,6 +63,12 @@ def printer_job(action: str) -> str:
 
 
 @server.tool()
+def printer_light(state: str) -> str:
+    """Switch the printer's LED light bar. state: on | off. The camera needs it on to see the plate."""
+    return printer.light(state)
+
+
+@server.tool()
 def slice_models(
     out_dir: str,
     models: list[str],
