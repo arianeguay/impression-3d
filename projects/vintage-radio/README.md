@@ -17,7 +17,13 @@ ACEIRMC 4 ohm 5 W speaker (51.6 mm frame).
 
 - `knob.stl`: flipped so its cap's top face is on the plate. As designed it stood on its 18 mm2
   stem with 184 mm2 of cap overhanging; flipped it sits on 139 mm2 with 27 mm2 of overhang.
-- No other geometry change. Every part fits as is:
+- `body_sealed.stl`: the divider raised from 107.25 to 117.5 mm, 0.5 mm under the grille, which
+  rests on the rim's ledge at 118.1 (measured across the rim). As designed, a 10 mm gap over the
+  divider let the speaker's sound straight into the mic bay; a plain ESP32 has no echo
+  cancellation, unlike the Echo Dot. A 3.6 x 124 x 10.6 mm block in line with the wall, no new
+  overhang (6632 to 6618 mm2), watertight, extents unchanged. Seal the 15 mm wire pass with hot
+  glue once the wires are through.
+- Nothing else changes. Every part fits as is:
   - the 51.6 mm speaker fits the 124 x 143.5 chamber, glued behind the slot field;
   - the ESP32 (51.5 x 28) and MAX98357 fit the 34.5 mm deep bay, taped to the back wall;
   - the INMP441 goes behind the grille's 8.4 x 2.5 slot, in the bay, away from the speaker;
@@ -28,7 +34,7 @@ ACEIRMC 4 ohm 5 W speaker (51.6 mm frame).
 
 | G-code | Filament | Time | Weight |
 |---|---|---|---|
-| `Vintage radio body - Overture PLA White - v1` | `Overture PLA White` | 5 h 45 | 285 g |
+| `Vintage radio body - Overture PLA White - v2` (`body_sealed`) | `Overture PLA White` | 5 h 51 | 289 g |
 | `Vintage radio grille and knob - Silk PLA Gold - v1` | `Silk PLA+ Pharaonic Gold` | 2 h 15 | 45 g |
 
 `functional` profile (0.2 mm, 3 walls, 15% gyroid), no supports, as the designer printed it.
