@@ -20,10 +20,19 @@ use **print-prepare** to slice them.
    **A MakerWorld STL zip can miss parts.** The KnockKnock zip held 3 STLs; its TPU bar sleeve
    was only in the print profile's 3MF. MakerWorld answers 403 to a fetch, so ask the user for
    the profile's 3MF or a screenshot of its plate list before planning.
+   **A case "for X" may be drawn for another model of X.** Measure the cavity against the
+   object's data sheet before anything else: the "Vintage Speaker for JBL" case held a Flip
+   (197 mm inside), not the user's Charge 4 (221 mm). Say too whether knobs and buttons reach the
+   object's own controls: its knobs were decorative, and the user assumed they pressed the speaker.
 3. **Fix geometry by editing vertices**, not by scaling a part up or down to cheat a fit (see Fits).
 4. **Choose each part's orientation and support need** (see Orientation), and state them.
 5. **Record the project** in `projects/<name>/`: final parts and what changed, with the measurement
    that justified it, then commit.
+6. **Every project PR shows a render of the parts.** Commit a `render.png` (assembled, and any
+   split or modified part on its own) to the project folder, show it in the README, and embed it
+   in the PR description as `![Render](https://github.com/<owner>/<repo>/blob/<branch>/<path>?raw=true)`.
+   The user asked for it on 2026-11-16 and reviews the PR by looking, not by opening the files.
+   `projects/jbl-vintage-speaker/render.py` renders STLs without matplotlib (shaded z-buffer).
 
 ## Fits
 
@@ -41,6 +50,10 @@ use **print-prepare** to slice them.
 - A fit that is unsure: print `calibration/lego_fit_coupon.stl` (three sizes per joint) before a
   whole part.
 
+- **Resize a case by inserting slabs, not by scaling.** Copy a stretch where the part is a plain
+  extrusion and insert it, so corners, holes and wall thickness stay as drawn; on a grille, insert
+  whole pitches and cut between holes. `projects/jbl-vintage-speaker/build.py` (`insert`) lengthened
+  a speaker case 27 mm (nine 3 mm pitches) this way.
 - **Scaling up grows clearances too.** A minifig skeleton at 500% had 0.85 mm of play at the neck
   (0.17 at 1x): refit every joint at the target scale, the same as when scaling down.
 - **A printed snap must flex within a layer.** Both 500% skeleton arms cracked at the shoulder clip,
