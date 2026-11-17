@@ -38,11 +38,12 @@ def load(name):
 
 
 def save(man, name, down):
-    """Write the part with the face pointing `down` (a unit vector) on the plate."""
+    """Write the part with the face pointing `down` (a unit vector) on the plate, or in place."""
     mm = man.to_mesh()
     t = trimesh.Trimesh(mm.vert_properties[:, :3], mm.tri_verts)
-    t.apply_transform(trimesh.geometry.align_vectors(down, [0, 0, -1]))
-    t.apply_translation(-t.bounds[0])
+    if down is not None:
+        t.apply_transform(trimesh.geometry.align_vectors(down, [0, 0, -1]))
+        t.apply_translation(-t.bounds[0])
     assert t.is_watertight, name
     t.export(OUT / f"{name}.stl")
     print(f"{name:14s} {np.round(t.extents, 1)}  {t.volume / 1000:.0f} cm3")
@@ -117,3 +118,10 @@ save(rim ^ span(0, RIM_SPLIT_X, BIG), "rim_long", Y_MAX)
 save(load("Knob"), "dial", Z_MIN)
 for name in ("Knob2", "Knob3", "JBL Speaker #2", "Button", "Legs"):
     save(load(name), name.lower().replace(" #", "").replace(" ", "_"), Z_MAX)
+
+# In place, for render.py.
+(OUT / "assembly").mkdir(exist_ok=True)
+save((body ^ span(0, -BIG, SPLIT_X)) + tabs(floor_z, top_z, back_y), "assembly/body_left", None)
+save(body ^ span(0, SPLIT_X, BIG), "assembly/body_right", None)
+save(face, "assembly/face", None)
+save(rim, "assembly/rim", None)

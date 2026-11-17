@@ -6,6 +6,11 @@ and one leg. The case was drawn for a smaller JBL (a Flip): `build.py` resizes i
 splits it for the 220 mm bed. Third-party STLs and outputs live in `parts/` (git-ignored); copy
 the zip's STLs into `parts/source/` and run `build.py` to regenerate.
 
+![Render](render.png)
+
+`render.py` draws it from `parts/assembly/` (written by `build.py`), with a 221 x 94 mm cylinder
+standing in for the Charge 4.
+
 ## Fit, measured on the source
 
 | Feature | Source | Charge 4 (JBL spec) |
@@ -46,5 +51,8 @@ longer fits under the lid.
 
 The 55 mm dial hole ends up in a vertical wall and prints as a bridge: Orca put no support in it.
 Every object has model extrusion on every layer of its height.
+
+The knobs and button are decorative: their pins are 0 to 3 mm long, in 1.5 mm holes through a
+3 mm lid, and the lid sits 3.6 mm above the speaker. They do not press the Charge 4's buttons.
 
 Not printed yet.
