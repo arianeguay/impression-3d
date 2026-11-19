@@ -3,10 +3,10 @@
 
 usage: printer.py status | list | upload <file.gcode> [name] | start <name>
                   | pause | resume | cancel | clear-platform | snapshot <out.jpg>
-                  | light on|off
+                  | light on|off | move [x=<mm>] [y=<mm>] [z=<mm>]
 
 Two channels, each doing what the other cannot:
-- TCP 8899 legacy protocol, no credentials: upload, start, status, file list.
+- TCP 8899 legacy protocol, no credentials: upload, start, status, file list, moves.
 - HTTP 8898 API, needs the check code: detailed status, the LED light bar, and clear-platform,
   which is the only remote way out of BUILDING_COMPLETED.
 The camera is MJPEG on 8080. Credentials live in ~/.config/impression-3d/printer.env.
@@ -143,6 +143,33 @@ def light(state):
     return legacy(lambda p: p.cmd("~M119"))
 
 
+LIMITS = {"X": (-110, 110), "Y": (-110, 110), "Z": (0, 220)}
+
+
+def move(**axes):
+    """Absolute move. Z is the bed's distance below the nozzle (220 = bottom); G28 homes it down."""
+    target = {k.upper(): float(v) for k, v in axes.items() if v is not None}
+    for k, v in target.items():
+        lo, hi = LIMITS[k]
+        if not lo <= v <= hi:
+            raise RuntimeError(f"{k}{v} outside {lo}..{hi}")
+    if not target:
+        raise RuntimeError("no axis given")
+
+    def run(p):
+        if "MachineStatus: READY" not in p.cmd("~M119"):
+            raise RuntimeError("printer is not READY: nothing moved")
+        p.cmd("~G90")
+        p.cmd("~G1 " + " ".join(f"{k}{v}" for k, v in target.items()) + " F3000")
+        for _ in range(30):
+            time.sleep(3)
+            pos = p.cmd("~M114")
+            if all(f"{k}:{v:.3f}" in pos for k, v in target.items()):
+                return pos
+        raise RuntimeError(f"did not reach {target}: {pos}")
+    return legacy(run)
+
+
 def snapshot(out_path):
     s = urllib.request.urlopen(f"http://{HOST}:8080/?action=stream", timeout=10)
     buf = b""
@@ -178,6 +205,8 @@ def main(argv):
             print(clear_platform())
         elif op == "light":
             print(light(args[0]))
+        elif op == "move":
+            print(move(**dict(a.split("=", 1) for a in args)))
         elif op == "snapshot":
             print(snapshot(args[0]))
         else:
