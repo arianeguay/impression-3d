@@ -16,6 +16,9 @@ geometry goes back to **print-design**, one caused by settings to **print-prepar
    after a failure. Look through `printer_camera` (or the user confirms), then `printer_clear_platform`
    if the last job is `BUILDING_COMPLETED`, then `printer_start`, then `printer_status` to confirm
    `BUILDING_FROM_SD`. The camera sees most of the plate but not its front edge: say so if in doubt.
+   After a tall print the bed stays low and the camera sees one corner: `printer_move(z=50)`
+   (`printer.py move z=50`) raises it first, `z=220` lowers it back. Move after
+   `printer_clear_platform`, since a printer in `cancel` or `BUILDING_COMPLETED` ignores moves.
 3. **Watch the job and cancel on the first spaghetti, without asking.** Check the camera every
    3 minutes for the first 15, then every 10: the v14 failure was already visible at 2 mm, on the
    first check. Loose strands or a part that stops rising is enough: `printer_job cancel` at once,

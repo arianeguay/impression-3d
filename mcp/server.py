@@ -69,6 +69,13 @@ def printer_light(state: str) -> str:
 
 
 @server.tool()
+def printer_move(x: float | None = None, y: float | None = None, z: float | None = None) -> str:
+    """Move the nozzle (x, y: -110..110) or the bed (z: mm below the nozzle, 220 = bottom). READY only.
+    z=50 raises the bed so the camera sees the whole plate."""
+    return printer.move(x=x, y=y, z=z)
+
+
+@server.tool()
 def slice_models(
     out_dir: str,
     models: list[str],
