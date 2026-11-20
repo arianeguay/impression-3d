@@ -107,6 +107,11 @@ the Bureau dashboard tile.
 
 ## Talking to the printer
 
+**If the laptop times out on the printer, use apollon at once** (`ssh apollon`, then
+`set -a; . ~/.config/impression-3d/printer.env; set +a` and `python3 ~/impression-3d/scripts/printer.py ...`,
+copying the G-code to `~/impression-3d/gcode/` first). On 2026-11-20 the laptop's tools timed out for ten
+minutes while apollon answered in seconds; Ariane says the laptop never reaches it (HOM-1603).
+
 `scripts/printer.py` speaks the legacy protocol on TCP 8899, the same one Orca's Flashforge host
 uses: `~M601 S1` login, `~M28 <size> 0:/user/<name>` then raw bytes in 4096-byte chunks, `~M29`
 save, `~M23 0:/user/<name>` start, `~M119` state, `~M105` temps, `~M27` progress, `~M661` file list.
